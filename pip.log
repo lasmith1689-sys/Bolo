@@ -1,0 +1,518 @@
+Looking in indexes: https://download.pytorch.org/whl/cpu
+Collecting torch==2.5.1
+  Downloading torch-2.5.1%2Bcpu-cp311-cp311-linux_x86_64.whl (174.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 174.7/174.7 MB 153.4 MB/s  0:00:01
+Collecting torchaudio==2.5.1
+  Downloading torchaudio-2.5.1%2Bcpu-cp311-cp311-linux_x86_64.whl (1.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.7/1.7 MB 166.1 MB/s  0:00:00
+Collecting filelock (from torch==2.5.1)
+  Downloading filelock-3.32.3-py3-none-any.whl.metadata (2.0 kB)
+Collecting typing-extensions>=4.8.0 (from torch==2.5.1)
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting networkx (from torch==2.5.1)
+  Downloading networkx-3.6.1-py3-none-any.whl.metadata (6.8 kB)
+Collecting jinja2 (from torch==2.5.1)
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting fsspec (from torch==2.5.1)
+  Downloading fsspec-2026.7.0-py3-none-any.whl.metadata (10 kB)
+Collecting sympy==1.13.1 (from torch==2.5.1)
+  Downloading sympy-1.13.1-py3-none-any.whl.metadata (12 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy==1.13.1->torch==2.5.1)
+  Downloading mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting MarkupSafe>=2.0 (from jinja2->torch==2.5.1)
+  Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Downloading sympy-1.13.1-py3-none-any.whl (6.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 127.4 MB/s  0:00:00
+Downloading mpmath-1.3.0-py3-none-any.whl (536 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 536.2/536.2 kB 79.7 MB/s  0:00:00
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading filelock-3.32.3-py3-none-any.whl (98 kB)
+Downloading fsspec-2026.7.0-py3-none-any.whl (206 kB)
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading markupsafe-3.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Downloading networkx-3.6.1-py3-none-any.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 205.3 MB/s  0:00:00
+Installing collected packages: mpmath, typing-extensions, sympy, networkx, MarkupSafe, fsspec, filelock, jinja2, torch, torchaudio
+
+Successfully installed MarkupSafe-3.0.3 filelock-3.32.3 fsspec-2026.7.0 jinja2-3.1.6 mpmath-1.3.0 networkx-3.6.1 sympy-1.13.1 torch-2.5.1+cpu torchaudio-2.5.1+cpu typing-extensions-4.16.0
+Collecting coqui-tts==0.25.3
+  Downloading coqui_tts-0.25.3-py3-none-any.whl.metadata (19 kB)
+Collecting transformers==4.46.2
+  Downloading transformers-4.46.2-py3-none-any.whl.metadata (44 kB)
+Collecting click
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting soundfile
+  Downloading soundfile-0.14.0-py2.py3-none-manylinux_2_28_x86_64.whl.metadata (18 kB)
+Collecting librosa
+  Downloading librosa-0.11.0-py3-none-any.whl.metadata (8.7 kB)
+Collecting anyascii>=0.3.0 (from coqui-tts==0.25.3)
+  Downloading anyascii-0.3.3-py3-none-any.whl.metadata (1.6 kB)
+Collecting coqpit-config<0.2.0,>=0.1.1 (from coqui-tts==0.25.3)
+  Downloading coqpit_config-0.1.2-py3-none-any.whl.metadata (11 kB)
+Collecting coqui-tts-trainer<0.3.0,>=0.2.0 (from coqui-tts==0.25.3)
+  Downloading coqui_tts_trainer-0.2.3-py3-none-any.whl.metadata (8.1 kB)
+Collecting cython>=3.0.0 (from coqui-tts==0.25.3)
+  Downloading cython-3.3.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (28 kB)
+Collecting einops>=0.6.0 (from coqui-tts==0.25.3)
+  Downloading einops-0.8.2-py3-none-any.whl.metadata (13 kB)
+Collecting encodec>=0.1.1 (from coqui-tts==0.25.3)
+  Downloading encodec-0.1.1.tar.gz (3.7 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.7/3.7 MB 59.2 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Requirement already satisfied: fsspec>=2023.6.0 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from fsspec[http]>=2023.6.0->coqui-tts==0.25.3) (2026.7.0)
+Collecting gruut>=2.4.0 (from gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading gruut-2.4.0.tar.gz (85 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting inflect>=5.6.0 (from coqui-tts==0.25.3)
+  Downloading inflect-7.5.0-py3-none-any.whl.metadata (24 kB)
+Collecting matplotlib>=3.7.0 (from coqui-tts==0.25.3)
+  Downloading matplotlib-3.11.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (80 kB)
+Collecting monotonic-alignment-search>=0.1.0 (from coqui-tts==0.25.3)
+  Downloading monotonic_alignment_search-0.2.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.6 kB)
+Collecting num2words>=0.5.14 (from coqui-tts==0.25.3)
+  Downloading num2words-0.5.14-py3-none-any.whl.metadata (13 kB)
+Collecting numpy<2.0,>=1.25.2 (from coqui-tts==0.25.3)
+  Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (61 kB)
+Collecting packaging>=23.1 (from coqui-tts==0.25.3)
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pysbd>=0.3.4 (from coqui-tts==0.25.3)
+  Downloading pysbd-0.3.4-py3-none-any.whl.metadata (6.1 kB)
+Collecting pyyaml>=6.0 (from coqui-tts==0.25.3)
+  Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting scipy>=1.11.2 (from coqui-tts==0.25.3)
+  Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+Collecting spacy<3.8,>=3 (from spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading spacy-3.7.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (27 kB)
+Requirement already satisfied: torch>=2.1 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from coqui-tts==0.25.3) (2.5.1+cpu)
+Requirement already satisfied: torchaudio>=2.1.0 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from coqui-tts==0.25.3) (2.5.1+cpu)
+Collecting tqdm>=4.64.1 (from coqui-tts==0.25.3)
+  Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Requirement already satisfied: typing-extensions>=4.10 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from coqui-tts==0.25.3) (4.16.0)
+Requirement already satisfied: filelock in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from transformers==4.46.2) (3.32.3)
+Collecting huggingface-hub<1.0,>=0.23.2 (from transformers==4.46.2)
+  Downloading huggingface_hub-0.36.2-py3-none-any.whl.metadata (15 kB)
+Collecting regex!=2019.12.17 (from transformers==4.46.2)
+  Downloading regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (40 kB)
+Collecting requests (from transformers==4.46.2)
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting safetensors>=0.4.1 (from transformers==4.46.2)
+  Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.2 kB)
+Collecting tokenizers<0.21,>=0.20 (from transformers==4.46.2)
+  Downloading tokenizers-0.20.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.7 kB)
+INFO: pip is looking at multiple versions of coqui-tts-trainer to determine which version is compatible with other requirements. This could take a while.
+Collecting coqui-tts-trainer<0.3.0,>=0.2.0 (from coqui-tts==0.25.3)
+  Downloading coqui_tts_trainer-0.2.2-py3-none-any.whl.metadata (8.0 kB)
+Collecting psutil>=5 (from coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl.metadata (22 kB)
+Collecting tensorboard>=2.17.0 (from coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading tensorboard-2.21.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting hf-xet<2.0.0,>=1.1.3 (from huggingface-hub<1.0,>=0.23.2->transformers==4.46.2)
+  Downloading hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (4.9 kB)
+Collecting spacy-legacy<3.1.0,>=3.0.11 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading spacy_legacy-3.0.12-py2.py3-none-any.whl.metadata (2.8 kB)
+Collecting spacy-loggers<2.0.0,>=1.0.0 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading spacy_loggers-1.0.5-py3-none-any.whl.metadata (23 kB)
+Collecting murmurhash<1.1.0,>=0.28.0 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading murmurhash-1.0.15-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl.metadata (2.3 kB)
+Collecting cymem<2.1.0,>=2.0.2 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading cymem-2.0.13-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (9.7 kB)
+Collecting preshed<3.1.0,>=3.0.2 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading preshed-3.0.13-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Collecting thinc<8.3.0,>=8.2.2 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading thinc-8.2.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (15 kB)
+Collecting wasabi<1.2.0,>=0.9.1 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading wasabi-1.1.3-py3-none-any.whl.metadata (28 kB)
+Collecting srsly<3.0.0,>=2.4.3 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading srsly-2.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (19 kB)
+Collecting catalogue<2.1.0,>=2.0.6 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading catalogue-2.0.10-py3-none-any.whl.metadata (14 kB)
+Collecting weasel<0.5.0,>=0.1.0 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading weasel-0.4.3-py3-none-any.whl.metadata (4.6 kB)
+Collecting typer<1.0.0,>=0.3.0 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading typer-0.27.2-py3-none-any.whl.metadata (16 kB)
+Collecting pydantic!=1.8,!=1.8.1,<3.0.0,>=1.7.4 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading pydantic-2.13.5-py3-none-any.whl.metadata (110 kB)
+Requirement already satisfied: jinja2 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3) (3.1.6)
+Requirement already satisfied: setuptools in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3) (79.0.1)
+Collecting langcodes<4.0.0,>=3.2.0 (from spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading langcodes-3.5.1-py3-none-any.whl.metadata (30 kB)
+Collecting annotated-types>=0.6.0 (from pydantic!=1.8,!=1.8.1,<3.0.0,>=1.7.4->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.46.5 (from pydantic!=1.8,!=1.8.1,<3.0.0,>=1.7.4->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading pydantic_core-2.46.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (6.6 kB)
+Collecting typing-inspection>=0.4.2 (from pydantic!=1.8,!=1.8.1,<3.0.0,>=1.7.4->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+Collecting charset_normalizer<4,>=2 (from requests->transformers==4.46.2)
+  Downloading charset_normalizer-3.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (45 kB)
+Collecting idna<4,>=2.5 (from requests->transformers==4.46.2)
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting urllib3<3,>=1.26 (from requests->transformers==4.46.2)
+  Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting certifi>=2023.5.7 (from requests->transformers==4.46.2)
+  Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting sudachipy!=0.6.1,>=0.5.2 (from spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading sudachipy-0.7.0-cp310-abi3-manylinux_2_28_x86_64.whl.metadata (13 kB)
+Collecting sudachidict-core>=20211220 (from spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading sudachidict_core-20260723.1-py3-none-any.whl.metadata (2.7 kB)
+Collecting blis<0.8.0,>=0.7.8 (from thinc<8.3.0,>=8.2.2->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading blis-0.7.11-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (7.4 kB)
+Collecting confection<1.0.0,>=0.0.1 (from thinc<8.3.0,>=8.2.2->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading confection-0.1.5-py3-none-any.whl.metadata (19 kB)
+Collecting shellingham>=1.3.0 (from typer<1.0.0,>=0.3.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting rich>=13.8.0 (from typer<1.0.0,>=0.3.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting annotated-doc>=0.0.2 (from typer<1.0.0,>=0.3.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting typer-slim<1.0.0,>=0.3.0 (from weasel<0.5.0,>=0.1.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading typer_slim-0.24.0-py3-none-any.whl.metadata (4.2 kB)
+Collecting cloudpathlib<1.0.0,>=0.7.0 (from weasel<0.5.0,>=0.1.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading cloudpathlib-0.25.0-py3-none-any.whl.metadata (16 kB)
+Collecting smart-open<8.0.0,>=5.2.1 (from weasel<0.5.0,>=0.1.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading smart_open-7.7.1-py3-none-any.whl.metadata (25 kB)
+Collecting wrapt (from smart-open<8.0.0,>=5.2.1->weasel<0.5.0,>=0.1.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading wrapt-2.5.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (7.6 kB)
+Collecting cffi>=1.0 (from soundfile)
+  Downloading cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Collecting audioread>=2.1.9 (from librosa)
+  Downloading audioread-3.1.0-py3-none-any.whl.metadata (9.0 kB)
+Collecting numba>=0.51.0 (from librosa)
+  Downloading numba-0.67.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.7 kB)
+Collecting scikit-learn>=1.1.0 (from librosa)
+  Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.3 kB)
+Collecting joblib>=1.0 (from librosa)
+  Downloading joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting decorator>=4.3.0 (from librosa)
+  Downloading decorator-5.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting pooch>=1.1 (from librosa)
+  Downloading pooch-1.9.0-py3-none-any.whl.metadata (10 kB)
+Collecting soxr>=0.3.2 (from librosa)
+  Downloading soxr-1.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.8 kB)
+Collecting lazy_loader>=0.1 (from librosa)
+  Downloading lazy_loader-0.6-py3-none-any.whl.metadata (6.0 kB)
+Collecting msgpack>=1.0 (from librosa)
+  Downloading msgpack-1.2.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting pycparser (from cffi>=1.0->soundfile)
+  Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting aiohttp!=4.0.0a0,!=4.0.0a1 (from fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading aiohttp-3.14.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting attrs>=17.3.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl.metadata (20 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading multidict-6.9.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (5.3 kB)
+Collecting propcache>=0.2.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (25 kB)
+Collecting yarl<2.0,>=1.17.0 (from aiohttp!=4.0.0a0,!=4.0.0a1->fsspec[http]>=2023.6.0->coqui-tts==0.25.3)
+  Downloading yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (111 kB)
+Collecting Babel<3.0.0,>=2.8.0 (from gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading babel-2.18.0-py3-none-any.whl.metadata (2.2 kB)
+Collecting dateparser~=1.1.1 (from gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading dateparser-1.1.8-py2.py3-none-any.whl.metadata (27 kB)
+Collecting gruut-ipa<1.0,>=0.12.0 (from gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading gruut-ipa-0.13.0.tar.gz (101 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting gruut_lang_en~=2.0.0 (from gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading gruut_lang_en-2.0.1.tar.gz (15.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 15.3/15.3 MB 177.3 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting jsonlines~=1.2.0 (from gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading jsonlines-1.2.0-py2.py3-none-any.whl.metadata (1.3 kB)
+Requirement already satisfied: networkx>=2.5.0 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3) (3.6.1)
+Collecting python-crfsuite~=0.9.7 (from gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading python_crfsuite-0.9.12-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl.metadata (4.3 kB)
+Collecting python-dateutil (from dateparser~=1.1.1->gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting pytz (from dateparser~=1.1.1->gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading pytz-2026.4-py2.py3-none-any.whl.metadata (22 kB)
+Collecting tzlocal (from dateparser~=1.1.1->gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading tzlocal-5.4.4-py3-none-any.whl.metadata (7.7 kB)
+Collecting six (from jsonlines~=1.2.0->gruut>=2.4.0->gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting docopt>=0.6.2 (from num2words>=0.5.14->coqui-tts==0.25.3)
+  Downloading docopt-0.6.2.tar.gz (25 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting gruut_lang_de~=2.0.0 (from gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading gruut_lang_de-2.0.1.tar.gz (18.1 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.1/18.1 MB 196.1 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting gruut_lang_es~=2.0.0 (from gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading gruut_lang_es-2.0.1.tar.gz (31.4 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 31.4/31.4 MB 203.4 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting gruut_lang_fr~=2.0.0 (from gruut[de,es,fr]>=2.4.0->coqui-tts==0.25.3)
+  Downloading gruut_lang_fr-2.0.2.tar.gz (10.9 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.9/10.9 MB 195.8 MB/s  0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting more_itertools>=8.5.0 (from inflect>=5.6.0->coqui-tts==0.25.3)
+  Downloading more_itertools-11.1.0-py3-none-any.whl.metadata (41 kB)
+Collecting typeguard>=4.0.1 (from inflect>=5.6.0->coqui-tts==0.25.3)
+  Downloading typeguard-4.6.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting cloudpickle>=3.0 (from joblib>=1.0->librosa)
+  Downloading cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting contourpy>=1.0.1 (from matplotlib>=3.7.0->coqui-tts==0.25.3)
+  Downloading contourpy-1.3.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (5.5 kB)
+Collecting cycler>=0.10 (from matplotlib>=3.7.0->coqui-tts==0.25.3)
+  Downloading cycler-0.12.1-py3-none-any.whl.metadata (3.8 kB)
+Collecting fonttools>=4.28.2 (from matplotlib>=3.7.0->coqui-tts==0.25.3)
+  Downloading fonttools-4.66.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (129 kB)
+Collecting kiwisolver>=1.3.1 (from matplotlib>=3.7.0->coqui-tts==0.25.3)
+  Downloading kiwisolver-1.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.2 kB)
+Collecting pillow>=9 (from matplotlib>=3.7.0->coqui-tts==0.25.3)
+  Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (9.1 kB)
+Collecting pyparsing>=3 (from matplotlib>=3.7.0->coqui-tts==0.25.3)
+  Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+Collecting llvmlite<0.50,>=0.49.0dev0 (from numba>=0.51.0->librosa)
+  Downloading llvmlite-0.49.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (5.0 kB)
+Collecting platformdirs>=2.5.0 (from pooch>=1.1->librosa)
+  Downloading platformdirs-4.12.1-py3-none-any.whl.metadata (5.5 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=13.8.0->typer<1.0.0,>=0.3.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=13.8.0->typer<1.0.0,>=0.3.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=13.8.0->typer<1.0.0,>=0.3.0->spacy<3.8,>=3->spacy[ja]<3.8,>=3->coqui-tts==0.25.3)
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting narwhals>=2.0.1 (from scikit-learn>=1.1.0->librosa)
+  Downloading narwhals-2.26.0-py3-none-any.whl.metadata (15 kB)
+Collecting threadpoolctl>=3.5.0 (from scikit-learn>=1.1.0->librosa)
+  Downloading threadpoolctl-3.7.0-py3-none-any.whl.metadata (24 kB)
+Collecting absl-py>=0.4 (from tensorboard>=2.17.0->coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading absl_py-2.5.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting grpcio<2.0,>=1.74.0 (from tensorboard>=2.17.0->coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading grpcio-1.84.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (3.8 kB)
+Collecting markdown>=2.6.8 (from tensorboard>=2.17.0->coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading markdown-3.11-py3-none-any.whl.metadata (5.1 kB)
+Collecting protobuf<8.0.0,>=6.31.1 (from tensorboard>=2.17.0->coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl.metadata (595 bytes)
+Collecting tensorboard-data-server<0.8.0,>=0.7.0 (from tensorboard>=2.17.0->coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl.metadata (1.1 kB)
+Collecting werkzeug>=1.0.1 (from tensorboard>=2.17.0->coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3)
+  Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Requirement already satisfied: sympy==1.13.1 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from torch>=2.1->coqui-tts==0.25.3) (1.13.1)
+Requirement already satisfied: mpmath<1.4,>=1.1.0 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from sympy==1.13.1->torch>=2.1->coqui-tts==0.25.3) (1.3.0)
+Requirement already satisfied: markupsafe>=2.1.1 in /opt/hostedtoolcache/Python/3.11.16/x64/lib/python3.11/site-packages (from werkzeug>=1.0.1->tensorboard>=2.17.0->coqui-tts-trainer<0.3.0,>=0.2.0->coqui-tts==0.25.3) (3.0.3)
+Downloading coqui_tts-0.25.3-py3-none-any.whl (863 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 863.5/863.5 kB 144.9 MB/s  0:00:00
+Downloading transformers-4.46.2-py3-none-any.whl (10.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.0/10.0 MB 186.8 MB/s  0:00:00
+Downloading coqpit_config-0.1.2-py3-none-any.whl (14 kB)
+Downloading coqui_tts_trainer-0.2.2-py3-none-any.whl (58 kB)
+Downloading huggingface_hub-0.36.2-py3-none-any.whl (566 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 115.1 MB/s  0:00:00
+Downloading hf_xet-1.6.0-cp38-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (4.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.5/4.5 MB 169.2 MB/s  0:00:00
+Downloading numpy-1.26.4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (18.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 18.3/18.3 MB 200.3 MB/s  0:00:00
+Downloading spacy-3.7.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 192.6 MB/s  0:00:00
+Downloading catalogue-2.0.10-py3-none-any.whl (17 kB)
+Downloading cymem-2.0.13-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (244 kB)
+Downloading langcodes-3.5.1-py3-none-any.whl (183 kB)
+Downloading murmurhash-1.0.15-cp311-cp311-manylinux1_x86_64.manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_5_x86_64.whl (128 kB)
+Downloading preshed-3.0.13-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (823 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.1/823.1 kB 152.0 MB/s  0:00:00
+Downloading pydantic-2.13.5-py3-none-any.whl (472 kB)
+Downloading pydantic_core-2.46.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 213.5 MB/s  0:00:00
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (262 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Downloading spacy_legacy-3.0.12-py2.py3-none-any.whl (29 kB)
+Downloading spacy_loggers-1.0.5-py3-none-any.whl (22 kB)
+Downloading srsly-2.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 187.1 MB/s  0:00:00
+Downloading thinc-8.2.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (920 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 920.2/920.2 kB 187.4 MB/s  0:00:00
+Downloading blis-0.7.11-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (10.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.2/10.2 MB 202.3 MB/s  0:00:00
+Downloading confection-0.1.5-py3-none-any.whl (35 kB)
+Downloading tokenizers-0.20.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (3.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.0/3.0 MB 184.3 MB/s  0:00:00
+Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading typer-0.27.2-py3-none-any.whl (123 kB)
+Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Downloading wasabi-1.1.3-py3-none-any.whl (27 kB)
+Downloading weasel-0.4.3-py3-none-any.whl (50 kB)
+Downloading cloudpathlib-0.25.0-py3-none-any.whl (66 kB)
+Downloading smart_open-7.7.1-py3-none-any.whl (65 kB)
+Downloading typer_slim-0.24.0-py3-none-any.whl (3.4 kB)
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+Downloading soundfile-0.14.0-py2.py3-none-manylinux_2_28_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 193.0 MB/s  0:00:00
+Downloading librosa-0.11.0-py3-none-any.whl (260 kB)
+Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Downloading anyascii-0.3.3-py3-none-any.whl (345 kB)
+Downloading audioread-3.1.0-py3-none-any.whl (23 kB)
+Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+Downloading cffi-2.1.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (217 kB)
+Downloading cython-3.3.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (3.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.5/3.5 MB 198.8 MB/s  0:00:00
+Downloading decorator-5.3.1-py3-none-any.whl (10 kB)
+Downloading einops-0.8.2-py3-none-any.whl (65 kB)
+Downloading aiohttp-3.14.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 222.6 MB/s  0:00:00
+Downloading multidict-6.9.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (320 kB)
+Downloading yarl-1.25.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (117 kB)
+Downloading aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Downloading frozenlist-1.8.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (231 kB)
+Downloading babel-2.18.0-py3-none-any.whl (10.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.2/10.2 MB 197.7 MB/s  0:00:00
+Downloading dateparser-1.1.8-py2.py3-none-any.whl (293 kB)
+Downloading jsonlines-1.2.0-py2.py3-none-any.whl (7.6 kB)
+Downloading num2words-0.5.14-py3-none-any.whl (163 kB)
+Downloading python_crfsuite-0.9.12-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 190.9 MB/s  0:00:00
+Downloading inflect-7.5.0-py3-none-any.whl (35 kB)
+Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Downloading lazy_loader-0.6-py3-none-any.whl (8.8 kB)
+Downloading matplotlib-3.11.2-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (9.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.9/9.9 MB 205.3 MB/s  0:00:00
+Downloading contourpy-1.3.3-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (355 kB)
+Downloading cycler-0.12.1-py3-none-any.whl (8.3 kB)
+Downloading fonttools-4.66.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (5.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.4/5.4 MB 193.5 MB/s  0:00:00
+Downloading kiwisolver-1.5.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 198.5 MB/s  0:00:00
+Downloading monotonic_alignment_search-0.2.1-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (640 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 640.0/640.0 kB 125.6 MB/s  0:00:00
+Downloading more_itertools-11.1.0-py3-none-any.whl (72 kB)
+Downloading msgpack-1.2.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (477 kB)
+Downloading numba-0.67.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (3.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.8/3.8 MB 199.4 MB/s  0:00:00
+Downloading llvmlite-0.49.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (59.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 59.9/59.9 MB 211.9 MB/s  0:00:00
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pillow-12.3.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (6.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.9/6.9 MB 198.6 MB/s  0:00:00
+Downloading pooch-1.9.0-py3-none-any.whl (67 kB)
+Downloading platformdirs-4.12.1-py3-none-any.whl (33 kB)
+Downloading propcache-0.5.4-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (235 kB)
+Downloading psutil-7.2.2-cp36-abi3-manylinux2010_x86_64.manylinux_2_12_x86_64.manylinux_2_28_x86_64.whl (155 kB)
+Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+Downloading pysbd-0.3.4-py3-none-any.whl (71 kB)
+Downloading python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading pyyaml-6.0.3-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (806 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 806.6/806.6 kB 136.2 MB/s  0:00:00
+Downloading regex-2026.9.29-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (804 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 805.0/805.0 kB 95.1 MB/s  0:00:00
+Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 188.0 MB/s  0:00:00
+Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading safetensors-0.8.0-cp310-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (516 kB)
+Downloading scikit_learn-1.9.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (9.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.3/9.3 MB 201.1 MB/s  0:00:00
+Downloading narwhals-2.26.0-py3-none-any.whl (474 kB)
+Downloading scipy-1.17.1-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.3/35.3 MB 209.0 MB/s  0:00:00
+Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Downloading six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading soxr-1.1.0-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (245 kB)
+Downloading sudachidict_core-20260723.1-py3-none-any.whl (76.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 76.9/76.9 MB 135.8 MB/s  0:00:00
+Downloading sudachipy-0.7.0-cp310-abi3-manylinux_2_28_x86_64.whl (1.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 97.0 MB/s  0:00:00
+Downloading tensorboard-2.21.0-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 108.4 MB/s  0:00:00
+Downloading grpcio-1.84.0-cp311-cp311-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (7.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.2/7.2 MB 109.8 MB/s  0:00:00
+Downloading protobuf-7.36.2-cp310-abi3-manylinux2014_x86_64.whl (343 kB)
+Downloading tensorboard_data_server-0.7.2-py3-none-manylinux_2_31_x86_64.whl (6.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.6/6.6 MB 111.6 MB/s  0:00:00
+Downloading absl_py-2.5.0-py3-none-any.whl (137 kB)
+Downloading markdown-3.11-py3-none-any.whl (111 kB)
+Downloading threadpoolctl-3.7.0-py3-none-any.whl (26 kB)
+Downloading typeguard-4.6.0-py3-none-any.whl (36 kB)
+Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Downloading pycparser-3.0-py3-none-any.whl (48 kB)
+Downloading pytz-2026.4-py2.py3-none-any.whl (506 kB)
+Downloading tzlocal-5.4.4-py3-none-any.whl (18 kB)
+Downloading wrapt-2.5.0-cp311-cp311-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl (239 kB)
+Building wheels for collected packages: encodec, gruut, gruut-ipa, gruut_lang_en, docopt, gruut_lang_de, gruut_lang_es, gruut_lang_fr
+  Building wheel for encodec (pyproject.toml): started
+  Building wheel for encodec (pyproject.toml): finished with status 'done'
+  Created wheel for encodec: filename=encodec-0.1.1-py3-none-any.whl size=45853 sha256=fac044bc71983463bdae1168bb068e6e1c2f93e922e445623b8feb7834e33d76
+  Stored in directory: /home/runner/.cache/pip/wheels/b4/a4/88/480018a664e58ca7ce6708759193ee51b017b3b72aa3df8a85
+  Building wheel for gruut (pyproject.toml): started
+  Building wheel for gruut (pyproject.toml): finished with status 'done'
+  Created wheel for gruut: filename=gruut-2.4.0-py3-none-any.whl size=86854 sha256=a40bc614a3376284c0bde871537b1ef960dce3173c08f6476d6851e24d66b044
+  Stored in directory: /home/runner/.cache/pip/wheels/7f/ff/c1/291e91d9b767694fb7f30f6cd16a5b89d6d67afacd796ad842
+  Building wheel for gruut-ipa (pyproject.toml): started
+  Building wheel for gruut-ipa (pyproject.toml): finished with status 'done'
+  Created wheel for gruut-ipa: filename=gruut_ipa-0.13.0-py3-none-any.whl size=104962 sha256=5458f17cd4612080eba48a37d471491183a1e9cfae634ff51a45bd5dcb3a7288
+  Stored in directory: /home/runner/.cache/pip/wheels/c7/10/89/a5908dd7a9a032229684b7679396785e19f816667f788087fb
+  Building wheel for gruut_lang_en (pyproject.toml): started
+  Building wheel for gruut_lang_en (pyproject.toml): finished with status 'done'
+  Created wheel for gruut_lang_en: filename=gruut_lang_en-2.0.1-py3-none-any.whl size=15326898 sha256=fe89e9007993cb109f8031432efde97d23e43db803e9565b8200078bdab41ce1
+  Stored in directory: /home/runner/.cache/pip/wheels/06/30/52/dc5cd222b4bbde285838fed1f96636e96f85cd75493e79a978
+  Building wheel for docopt (pyproject.toml): started
+  Building wheel for docopt (pyproject.toml): finished with status 'done'
+  Created wheel for docopt: filename=docopt-0.6.2-py2.py3-none-any.whl size=13783 sha256=7ca43d66a47d05d247faf7271d97c3ba1104501a19082225508137bd75d62092
+  Stored in directory: /home/runner/.cache/pip/wheels/1a/b0/8c/4b75c4116c31f83c8f9f047231251e13cc74481cca4a78a9ce
+  Building wheel for gruut_lang_de (pyproject.toml): started
+  Building wheel for gruut_lang_de (pyproject.toml): finished with status 'done'
+  Created wheel for gruut_lang_de: filename=gruut_lang_de-2.0.1-py3-none-any.whl size=18498357 sha256=4a6184ffc13a8c28ba5281dcb9872cdc3f08893d4a43df3acb183fa678f7d459
+  Stored in directory: /home/runner/.cache/pip/wheels/87/fa/df/5fdf5d3cc26ba859b8698a1f28581d1a6aa081edc6df9847ab
+  Building wheel for gruut_lang_es (pyproject.toml): started
+  Building wheel for gruut_lang_es (pyproject.toml): finished with status 'done'
+  Created wheel for gruut_lang_es: filename=gruut_lang_es-2.0.1-py3-none-any.whl size=32173971 sha256=bda86a9bbab6b8a8e5edc58bf48ee2f67424c02f1b6059a6a3218a241721bb39
+  Stored in directory: /home/runner/.cache/pip/wheels/c8/eb/59/30b5d15e56347e595f613036cbea0f807ad9621c75cd75d912
+  Building wheel for gruut_lang_fr (pyproject.toml): started
+  Building wheel for gruut_lang_fr (pyproject.toml): finished with status 'done'
+  Created wheel for gruut_lang_fr: filename=gruut_lang_fr-2.0.2-py3-none-any.whl size=10968810 sha256=bb4f9eab06b166b96cc60498c0442ea283dee66ecff585ca82910cf40ab94fd5
+  Stored in directory: /home/runner/.cache/pip/wheels/e0/e7/a0/7c416a3eeaa94ca71bf7bcbc6289cced2263d8ba35e82444bb
+Successfully built encodec gruut gruut-ipa gruut_lang_en docopt gruut_lang_de gruut_lang_es gruut_lang_fr
+Installing collected packages: pytz, gruut_lang_fr, gruut_lang_es, gruut_lang_en, gruut_lang_de, docopt, wrapt, werkzeug, wasabi, urllib3, tzlocal, typing-inspection, typeguard, tqdm, threadpoolctl, tensorboard-data-server, sudachipy, spacy-loggers, spacy-legacy, six, shellingham, safetensors, regex, pyyaml, python-crfsuite, pysbd, pyparsing, pygments, pydantic-core, pycparser, psutil, protobuf, propcache, platformdirs, pillow, packaging, numpy, num2words, narwhals, murmurhash, multidict, msgpack, more_itertools, mdurl, markdown, llvmlite, langcodes, kiwisolver, idna, hf-xet, gruut-ipa, grpcio, frozenlist, fonttools, einops, decorator, cython, cymem, cycler, coqpit-config, cloudpickle, cloudpathlib, click, charset_normalizer, certifi, catalogue, Babel, audioread, attrs, anyascii, annotated-types, annotated-doc, aiohappyeyeballs, absl-py, yarl, tensorboard, sudachidict-core, srsly, soxr, smart-open, scipy, requests, python-dateutil, pydantic, preshed, numba, monotonic-alignment-search, markdown-it-py, lazy_loader, jsonlines, joblib, inflect, contourpy, cffi, blis, aiosignal, soundfile, scikit-learn, rich, pooch, matplotlib, huggingface-hub, dateparser, confection, aiohttp, typer, tokenizers, thinc, librosa, gruut, encodec, coqui-tts-trainer, typer-slim, transformers, weasel, spacy, coqui-tts
+
+Successfully installed Babel-2.18.0 absl-py-2.5.0 aiohappyeyeballs-2.7.1 aiohttp-3.14.3 aiosignal-1.4.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyascii-0.3.3 attrs-26.1.0 audioread-3.1.0 blis-0.7.11 catalogue-2.0.10 certifi-2026.7.22 cffi-2.1.1 charset_normalizer-3.5.1 click-8.5.0 cloudpathlib-0.25.0 cloudpickle-3.1.2 confection-0.1.5 contourpy-1.3.3 coqpit-config-0.1.2 coqui-tts-0.25.3 coqui-tts-trainer-0.2.2 cycler-0.12.1 cymem-2.0.13 cython-3.3.0 dateparser-1.1.8 decorator-5.3.1 docopt-0.6.2 einops-0.8.2 encodec-0.1.1 fonttools-4.66.0 frozenlist-1.8.0 grpcio-1.84.0 gruut-2.4.0 gruut-ipa-0.13.0 gruut_lang_de-2.0.1 gruut_lang_en-2.0.1 gruut_lang_es-2.0.1 gruut_lang_fr-2.0.2 hf-xet-1.6.0 huggingface-hub-0.36.2 idna-3.20 inflect-7.5.0 joblib-1.6.0 jsonlines-1.2.0 kiwisolver-1.5.1 langcodes-3.5.1 lazy_loader-0.6 librosa-0.11.0 llvmlite-0.49.0 markdown-3.11 markdown-it-py-4.2.0 matplotlib-3.11.2 mdurl-0.1.2 monotonic-alignment-search-0.2.1 more_itertools-11.1.0 msgpack-1.2.3 multidict-6.9.1 murmurhash-1.0.15 narwhals-2.26.0 num2words-0.5.14 numba-0.67.0 numpy-1.26.4 packaging-26.3 pillow-12.3.0 platformdirs-4.12.1 pooch-1.9.0 preshed-3.0.13 propcache-0.5.4 protobuf-7.36.2 psutil-7.2.2 pycparser-3.0 pydantic-2.13.5 pydantic-core-2.46.5 pygments-2.21.0 pyparsing-3.3.3 pysbd-0.3.4 python-crfsuite-0.9.12 python-dateutil-2.9.0.post0 pytz-2026.4 pyyaml-6.0.3 regex-2026.9.29 requests-2.34.2 rich-15.0.0 safetensors-0.8.0 scikit-learn-1.9.1 scipy-1.17.1 shellingham-1.5.4 six-1.17.0 smart-open-7.7.1 soundfile-0.14.0 soxr-1.1.0 spacy-3.7.5 spacy-legacy-3.0.12 spacy-loggers-1.0.5 srsly-2.5.4 sudachidict-core-20260723.1 sudachipy-0.7.0 tensorboard-2.21.0 tensorboard-data-server-0.7.2 thinc-8.2.5 threadpoolctl-3.7.0 tokenizers-0.20.3 tqdm-4.70.1 transformers-4.46.2 typeguard-4.6.0 typer-0.27.2 typer-slim-0.24.0 typing-inspection-0.4.4 tzlocal-5.4.4 urllib3-2.8.0 wasabi-1.1.3 weasel-0.4.3 werkzeug-3.1.9 wrapt-2.5.0 yarl-1.25.1
