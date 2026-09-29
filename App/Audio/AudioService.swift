@@ -31,7 +31,8 @@ final class AudioService: NSObject {
     }
 
     @ObservationIgnored private var player: AVAudioPlayer?
-    private let synthesizer = AVSpeechSynthesizer()
+    /// Created on first use: spinning up the speech service can take seconds on a cold start.
+    @ObservationIgnored private var speaker: AVSpeechSynthesizer?
     @ObservationIgnored private var sessionConfigured = false
     private let bundle: Bundle
 
@@ -43,9 +44,16 @@ final class AudioService: NSObject {
         preferred = Source(rawValue: UserDefaults.standard.string(forKey: Self.sourceKey) ?? "") ?? .recorded
         slow = UserDefaults.standard.bool(forKey: Self.slowKey)
         super.init()
-        synthesizer.delegate = self
         loadManifest()
         refreshSystemVoice()
+    }
+
+    private var synthesizer: AVSpeechSynthesizer {
+        if let speaker { return speaker }
+        let made = AVSpeechSynthesizer()
+        made.delegate = self
+        speaker = made
+        return made
     }
 
     var recordedAvailable: Bool { !(manifest?.clips.isEmpty ?? true) }
@@ -74,17 +82,25 @@ final class AudioService: NSObject {
         return "\(voice.name) (\(quality))"
     }
 
+    /// Finds the best installed Gujarati voice off the main thread: the first call to speechVoices()
+    /// loads the voice catalogue and can block for seconds.
     func refreshSystemVoice() {
-        func rank(_ v: AVSpeechSynthesisVoice) -> Int {
-            switch v.quality {
-            case .premium: return 3
-            case .enhanced: return 2
-            default: return 1
+        Task.detached(priority: .utility) {
+            func rank(_ v: AVSpeechSynthesisVoice) -> Int {
+                switch v.quality {
+                case .premium: return 3
+                case .enhanced: return 2
+                default: return 1
+                }
+            }
+            let identifier = AVSpeechSynthesisVoice.speechVoices()
+                .filter { $0.language.lowercased().hasPrefix("gu") }
+                .max { rank($0) < rank($1) }?
+                .identifier
+            await MainActor.run {
+                self.systemVoice = identifier.flatMap { AVSpeechSynthesisVoice(identifier: $0) }
             }
         }
-        systemVoice = AVSpeechSynthesisVoice.speechVoices()
-            .filter { $0.language.lowercased().hasPrefix("gu") }
-            .max { rank($0) < rank($1) }
     }
 
     private func loadManifest() {
@@ -124,7 +140,7 @@ final class AudioService: NSObject {
     func stop() {
         player?.stop()
         player = nil
-        if synthesizer.isSpeaking { synthesizer.stopSpeaking(at: .immediate) }
+        if let speaker, speaker.isSpeaking { speaker.stopSpeaking(at: .immediate) }
         playingKey = nil
     }
 
@@ -140,7 +156,7 @@ final class AudioService: NSObject {
     /// A clip or utterance ended. Ignored if something newer has started since.
     fileprivate func finished(player id: ObjectIdentifier?) {
         if let id, let player, ObjectIdentifier(player) != id { return }
-        if player?.isPlaying == true || synthesizer.isSpeaking { return }
+        if player?.isPlaying == true || speaker?.isSpeaking == true { return }
         player = nil
         playingKey = nil
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)

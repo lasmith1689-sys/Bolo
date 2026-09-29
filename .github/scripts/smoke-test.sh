@@ -24,12 +24,24 @@ alive() {
   [[ "$services" == *"UIKitApplication:$BUNDLE"* ]]
 }
 
+size() { stat -f%z "$1" 2>/dev/null || echo 0; }
+
 # 1. A plain first launch, exactly as a new install would start.
 xcrun simctl launch "$UDID" "$BUNDLE" >/dev/null
 sleep 15
 if alive; then
   echo "Bolo is still running 15 s after a plain launch"
-  xcrun simctl io "$UDID" screenshot --type=png "$OUT/00-first-launch.png" >/dev/null 2>&1
+  # The plain launch screen is a flat colour and makes a tiny PNG; the home screen is detailed.
+  for attempt in 1 2 3 4 5 6; do
+    xcrun simctl io "$UDID" screenshot --type=png "$OUT/00-first-launch.png" >/dev/null 2>&1
+    [ "$(size "$OUT/00-first-launch.png")" -gt 150000 ] && break
+    echo "... still on the launch screen (attempt $attempt)"
+    sleep 5
+  done
+  if [ "$(size "$OUT/00-first-launch.png")" -le 150000 ]; then
+    echo "::error title=Smoke test::Bolo still shows only its launch screen 45 s after a plain launch"
+    failures=$((failures + 1))
+  fi
 else
   echo "::error title=Smoke test::Bolo is not running 15 s after launch"
   failures=$((failures + 1))
@@ -42,7 +54,12 @@ capture() {
   xcrun simctl launch "$UDID" "$BUNDLE" -BoloScreen "$screen" >/dev/null
   sleep "$wait"
   if alive; then
-    xcrun simctl io "$UDID" screenshot --type=png "$OUT/$file.png" >/dev/null 2>&1
+    for attempt in 1 2 3 4; do
+      xcrun simctl io "$UDID" screenshot --type=png "$OUT/$file.png" >/dev/null 2>&1
+      [ "$(size "$OUT/$file.png")" -gt 150000 ] && break
+      echo "... $file still loading (attempt $attempt)"
+      sleep 4
+    done
     echo "captured $file"
   else
     echo "::error title=Smoke test::Bolo is not running on screen '$screen'"
@@ -51,7 +68,7 @@ capture() {
 }
 
 n=1
-for screen in home teach gloss recognise recall listen assemble miss summary settings; do
+for screen in home teach gloss recognise recall listen assemble numbers miss summary settings; do
   capture "$(printf '%02d' $n)-$screen" "$screen" 6
   n=$((n + 1))
 done
@@ -60,7 +77,7 @@ if [ "$failures" -gt 0 ]; then
   find ~/Library/Logs/DiagnosticReports -name "Bolo*" -mmin -20 -print -exec head -80 {} \; 2>/dev/null
   exit 1
 fi
-echo "::notice title=Smoke test::Bolo launched and stayed up for 15 s, and opened all 10 screens without crashing"
+echo "::notice title=Smoke test::Bolo launched and stayed up for 15 s, and opened all 11 screens without crashing"
 
 echo "::group::App log (errors and faults)"
 xcrun simctl spawn "$UDID" log show --last 5m --style compact \

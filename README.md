@@ -49,7 +49,7 @@ There is no Mac in this project: GitHub Actions does all the building.
 
 | Workflow | When | What |
 |---|---|---|
-| **CI** | every push to `main` | BoloKit unit tests on macOS; Simulator build, launch and a 10-screen smoke test with screenshots (also pushed to the `ci/screenshots` branch); App Store archive dry run with an entitlements check |
+| **CI** | every push to `main` | BoloKit unit tests on macOS; Simulator build, launch and an 11-screen smoke test with screenshots (also pushed to the `ci/screenshots` branch); App Store archive dry run with an entitlements check |
 | **TestFlight** | by hand, or a commit message containing `[ship]` | signs with Apple's cloud signing and uploads to TestFlight (see [TESTFLIGHT.md](TESTFLIGHT.md)) |
 | **Audio** | `content.json` changes, or by hand | records missing or stale clips, verifies them and commits them |
 | **TTS probe** | research only | compares candidate Gujarati TTS models; results on the `probe/*` branches |
@@ -84,10 +84,19 @@ lines.
 3. Trims silence, normalises loudness, encodes mono AAC, and fails loudly if any clip is missing or
    near-silent.
 
-The model was chosen by the TTS probe (`probe/*` branches): Svara scored highest on an automatic
-naturalness estimate (UTMOS), AI4Bharat Indic-TTS was more reliable but flatter, Meta MMS-TTS has a
-single voice and a non-commercial licence, and AI4Bharat's Indic Parler-TTS is gated on Hugging
-Face. The earlier espeak and MBROLA voices were dropped for good. See `tools/tts/` for details.
+The model was chosen by the TTS probe (the `TTS probe` workflow; WAVs and reports are on the
+`probe/*` branches), which read the same 8 app lines in each candidate's voices on a 4-core runner:
+
+| Model | Voices | Licence | Naturalness estimate (UTMOS, 1-5) | Recognizer error (CER) | Time per line |
+|---|---|---|---|---|---|
+| Svara TTS v1 | male, female | Apache 2.0 | **4.21** | 1.29 (repeats or rambles on some takes) | ~140 s |
+| AI4Bharat Indic-TTS | male, female | MIT | 3.11 | 0.17 | ~2 s |
+| Meta MMS-TTS | one | CC BY-NC 4.0 | not measured | 0.21 | ~0.5 s |
+| AI4Bharat Indic Parler-TTS, IndicF5 | | | gated on Hugging Face (needs an account token) | | |
+
+UTMOS was trained on English speech, so treat it as a rough guide. Svara's stumbles are what the
+best-of-five selection removes. Nobody has listened to the clips yet: compare them with the iPhone
+voice in Settings. The earlier espeak and MBROLA voices are gone for good.
 
 ## Credits and licences
 

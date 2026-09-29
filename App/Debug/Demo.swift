@@ -5,7 +5,7 @@ import Foundation
 /// normal launch, and never written to the real progress file.
 @MainActor
 enum Demo {
-    static let screens = ["home", "teach", "gloss", "recognise", "recall", "listen", "assemble", "miss", "summary", "settings"]
+    static let screens = ["home", "teach", "gloss", "recognise", "recall", "listen", "assemble", "numbers", "miss", "summary", "settings"]
 
     static func prepare(_ app: AppModel, screen: String?) {
         app.rng = SplitMix64(seed: 7)
@@ -19,6 +19,7 @@ enum Demo {
         case "recall": session(app, target: "e1", mode: .recall)
         case "listen": session(app, target: "a1", mode: .listen)
         case "assemble": session(app, target: "c4", mode: .assemble)
+        case "numbers": session(app, target: "d7", mode: .recognise)
         case "miss":
             session(app, target: "g6", mode: .recognise)
             if case .session(let model) = app.screen { model.debugMissAndReveal() }

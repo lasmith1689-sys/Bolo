@@ -86,11 +86,14 @@ final class SessionModel {
 
     func next() {
         app.audio.stop()
-        run.advance()
-        if run.isFinished {
+        guard run.index + 1 < run.items.count else {
+            run.advance()
             app.finish(run)
-        } else {
-            withAnimation(.easeInOut(duration: 0.22)) { prepare() }
+            return
+        }
+        withAnimation(.easeInOut(duration: 0.25)) {
+            run.advance()
+            prepare()
         }
     }
 
