@@ -43,7 +43,7 @@ jobs:
             pip install torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu &&
             case "$ENGINE" in
               svara)    pip install "transformers>=4.46,<5" accelerate snac soundfile librosa ;;
-              indictts) pip install "coqui-tts==0.25.3" "transformers==4.46.2" soundfile librosa ;;
+              indictts) pip install "coqui-tts==0.25.3" "transformers==4.46.2" click soundfile librosa ;;
               parler)   pip install "git+https://github.com/huggingface/parler-tts.git" soundfile librosa ;;
             esac
           } > pip.log 2>&1 || { echo "::error title=pip install::$(grep -iE 'error|conflict|requires' pip.log | tail -15 | sed 's/%/%25/g' | tr '\n' '|' | sed 's/|/%0A/g')"; tail -40 pip.log; exit 1; }
