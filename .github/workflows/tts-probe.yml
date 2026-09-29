@@ -39,15 +39,16 @@ jobs:
         run: |
           sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 espeak-ng >/dev/null
           python -m pip install -q --upgrade pip
-          pip install -q torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
-          case "$ENGINE" in
-            svara)    pip install -q "transformers>=4.46,<5" accelerate snac soundfile librosa ;;
-            indictts) pip install -q "coqui-tts==0.24.2" "transformers==4.46.2" soundfile librosa ;;
-            parler)   pip install -q "git+https://github.com/huggingface/parler-tts.git" soundfile librosa ;;
-          esac
+          {
+            pip install torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu &&
+            case "$ENGINE" in
+              svara)    pip install "transformers>=4.46,<5" accelerate snac soundfile librosa ;;
+              indictts) pip install "coqui-tts==0.25.3" "transformers==4.46.2" soundfile librosa ;;
+              parler)   pip install "git+https://github.com/huggingface/parler-tts.git" soundfile librosa ;;
+            esac
+          } > pip.log 2>&1 || { echo "::error title=pip install::$(grep -iE 'error|conflict|requires' pip.log | tail -15 | sed 's/%/%25/g' | tr '\n' '|' | sed 's/|/%0A/g')"; tail -40 pip.log; exit 1; }
           pip list 2>/dev/null | grep -iE "^(torch|transformers|coqui|parler|snac) " || true
           nproc; free -g; df -h / | tail -1
-          lscpu | grep -i "model name"; grep -o -w -E 'avx512f|avx512_bf16|amx_bf16' /proc/cpuinfo | sort -u | tr '\n' ' '; echo
 
       - name: Probe
         env:
