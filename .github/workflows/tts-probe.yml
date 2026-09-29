@@ -1,0 +1,58 @@
+name: TTS probe
+
+# Research run: tries the open Gujarati TTS candidates on a plain Ubuntu runner and pushes the
+# WAVs and a JSON report to the probe/tts branch for inspection. Not part of the app build.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tts-probe.yml
+      - tools/tts/probe.py
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tts-probe
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 >/dev/null
+          python -m pip install -q --upgrade pip
+          pip install -q torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "git+https://github.com/huggingface/parler-tts.git" soundfile librosa
+          pip list 2>/dev/null | grep -iE "^(torch|transformers|parler|descript)" || true
+          nproc; free -g; df -h / | tail -1
+
+      - name: Probe
+        env:
+          HF_HUB_DISABLE_PROGRESS_BARS: "1"
+          TOKENIZERS_PARALLELISM: "false"
+        run: python tools/tts/probe.py
+
+      - name: Publish results to probe/tts
+        if: always()
+        run: |
+          [ -d probe-out ] || exit 0
+          mkdir -p /tmp/pub && cp -r probe-out/* /tmp/pub/
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan probe/tts
+          git rm -rfq . >/dev/null
+          cp -r /tmp/pub/* .
+          git add -A
+          git commit -qm "TTS probe results (run ${{ github.run_id }})"
+          git push -f origin probe/tts
