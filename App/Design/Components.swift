@@ -1,3 +1,4 @@
+import BoloKit
 import SwiftUI
 
 /// The madder print button: flat, square-cornered, set in Eczar capitals.
@@ -156,5 +157,31 @@ struct GlassIconButton: View {
         .buttonStyle(.plain)
         .glassEffect(.regular.interactive(), in: .circle)
         .accessibilityLabel(label)
+    }
+}
+
+/// A small speaker button that plays one clip and animates while it plays.
+struct SpeakButton: View {
+    @Environment(AppModel.self) private var app
+    let request: AudioRequest
+    var label = "Play"
+
+    var body: some View {
+        let playing = app.audio.playingKey == request.key
+        if app.audio.canPlay {
+            Button {
+                if playing { app.audio.stop() } else { app.audio.play(request) }
+            } label: {
+                Image(systemName: "speaker.wave.2.fill")
+                    .font(.system(size: 13, weight: .semibold))
+                    .symbolEffect(.variableColor.iterative, isActive: playing)
+                    .foregroundStyle(playing ? Palette.gold : Palette.cream)
+                    .frame(width: 32, height: 32)
+                    .overlay(Circle().strokeBorder(playing ? Palette.gold : Palette.rule, lineWidth: 1))
+                    .contentShape(Circle())
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel(label)
+        }
     }
 }

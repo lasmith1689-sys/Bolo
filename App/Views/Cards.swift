@@ -61,6 +61,7 @@ struct TeachCard: View {
                         }
                         .fixedSize(horizontal: false, vertical: true)
                         Spacer(minLength: 0)
+                        SpeakButton(request: app.content.audioRequest(for: phrase), label: "Play \(phrase.en)")
                     }
                     Rectangle().fill(Palette.rule.opacity(0.5)).frame(height: 1)
                     TrackedLabel(text: "In conversation", size: 10.5, tracking: 0.2, color: Palette.madder)
@@ -158,6 +159,10 @@ struct ChoiceCard: View {
             Text(phrase.ro)
                 .font(Typeface.roman(17.5))
                 .foregroundStyle(Palette.gold)
+            if item.mode != .listen {
+                SpeakButton(request: app.content.audioRequest(for: phrase), label: "Play \(phrase.gu)")
+                    .padding(.top, 8)
+            }
         }
     }
 

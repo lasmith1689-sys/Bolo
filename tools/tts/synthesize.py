@@ -39,7 +39,9 @@ ENGINES = {
         "id": "kenpath-svara-tts-v1-t0.6",
         "model": "Svara TTS v1 (Kenpath)",
         "voices": {"male": "Gujarati (Male)", "female": "Gujarati (Female)"},
-        "candidates": 3,
+        # Sampled, so it sometimes repeats itself or says its speaker label; keep drawing
+        # candidates until the recognizer hears the line cleanly.
+        "candidates": 5,
     },
     "mms": {
         "id": "facebook-mms-tts-guj",
@@ -48,7 +50,7 @@ ENGINES = {
         "candidates": 1,
     },
 }
-ENGINE = os.environ.get("ENGINE", "indictts")
+ENGINE = os.environ.get("ENGINE", "svara")
 
 PUNCT = "?!.,"
 
@@ -171,8 +173,11 @@ class Svara:
         body = self.tok(f"{voice}: {text}", add_special_tokens=False).input_ids
         ids = torch.tensor([[128000, 128259, 156939] + body + [128260, 128009, 128261, 128257]])
         torch.manual_seed(seed)
+        # About 82 audio tokens per second of speech: allow a slow reading of the line and no more,
+        # so a candidate that starts to ramble is cut short instead of costing minutes.
+        budget = int(82 * (1.2 + 0.2 * len(norm(text)))) + 60
         with torch.inference_mode():
-            out = self.model.generate(ids, attention_mask=torch.ones_like(ids), max_new_tokens=900, do_sample=True,
+            out = self.model.generate(ids, attention_mask=torch.ones_like(ids), max_new_tokens=min(900, budget), do_sample=True,
                                       temperature=0.6, top_p=0.9, top_k=40, repetition_penalty=1.1,
                                       eos_token_id=[128258, 128262], pad_token_id=128263)
         gen = out[0, ids.shape[1]:].tolist()
@@ -274,9 +279,12 @@ def cmd_generate(args):
             print(f"[{n + 1}/{len(items)}] {voice} {text} cand {k}: {dur:.2f}s in {took:.1f}s cer={score['cer']} {score['asr']}", flush=True)
             if best is None or rank < best[0]:
                 best = (rank, audio, score, k)
+            if plausible and score["cer"] is not None and score["cer"] <= 0.15:
+                break  # heard cleanly: good enough
         name = file_name(voice, text).replace(".m4a", "")
         sf.write(os.path.join(out_dir, f"{name}.wav"), best[1], tts.sr)
-        json.dump({"voice": voice, "text": text, "candidate": best[3], **best[2]},
+        json.dump({"voice": voice, "text": text, "candidate": best[3], "candidates_tried": k + 1,
+                   "plausible": best[0][0] == 0, **best[2]},
                   open(os.path.join(out_dir, f"{name}.json"), "w", encoding="utf-8"), ensure_ascii=False)
 
 
@@ -347,7 +355,7 @@ def cmd_finalize(args):
             meta = json.load(open(os.path.join(raw_dir, base + ".json"), encoding="utf-8"))
             stats = process(wav, os.path.join(AUDIO_DIR, fname))
             entry = {"file": fname, "duration": stats["dur"], "engine": engine["id"],
-                     "cer": meta.get("cer"), "asr": meta.get("asr"),
+                     "cer": meta.get("cer"), "asr": meta.get("asr"), "tries": meta.get("candidates_tried"),
                      "active_rms_db": stats["active_rms_db"], "peak_db": stats["peak_db"]}
         elif k in old and old[k].get("engine") == engine["id"] and os.path.exists(os.path.join(AUDIO_DIR, old[k]["file"])):
             entry = old[k]
@@ -391,6 +399,10 @@ def cmd_finalize(args):
             print(f"::error title=Audio::{p}")
         sys.exit(1)
     print(f"::notice title=Audio::{summary}")
+    doubtful = [(k, e) for k, e in report if (e.get("cer") or 0) > 0.5]
+    if doubtful:
+        print("::warning title=Audio (recognizer could not confirm these clips)::" + "%0A".join(
+            f"{e['cer']:.2f} {k} heard {e.get('asr') or '(nothing)'}" for k, e in doubtful[:30]))
     worst = sorted((e for _, e in report if e.get("cer") is not None), key=lambda e: -e["cer"])[:8]
     if worst:
         print("::notice title=Audio (least intelligible to the recognizer)::" + "%0A".join(
