@@ -41,7 +41,8 @@ public enum Words {
             return true
         }
         if p.count == 1 {
-            return l.contains { $0.hasPrefix(p[0]) }
+            // Compare scalars, not characters: ઘરે's second character is ર plus a vowel sign.
+            return l.contains { $0.unicodeScalars.starts(with: p[0].unicodeScalars) }
         }
         return false
     }

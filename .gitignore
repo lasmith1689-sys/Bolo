@@ -22,3 +22,6 @@ probe-out/
 tts-work/
 __pycache__/
 *.pyc
+
+# Screenshots from local smoke tests
+screenshots/

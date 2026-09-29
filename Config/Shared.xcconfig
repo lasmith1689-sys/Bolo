@@ -1,0 +1,10 @@
+// Bolo build configuration.
+//
+// The bundle ID and team are fixed: the App ID and the App Store Connect record already exist.
+// CURRENT_PROJECT_VERSION is overridden by CI (BUILD_NUMBER) for every TestFlight upload.
+
+DEVELOPMENT_TEAM = U3CTV4FLKM
+PRODUCT_BUNDLE_IDENTIFIER = com.lasmith1689.Bolo
+
+MARKETING_VERSION = 1.0
+CURRENT_PROJECT_VERSION = 1

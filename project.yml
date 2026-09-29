@@ -1,0 +1,58 @@
+name: Bolo
+options:
+  deploymentTarget:
+    iOS: "26.0"
+  createIntermediateGroups: true
+  developmentLanguage: en
+
+configFiles:
+  Debug: Config/Shared.xcconfig
+  Release: Config/Shared.xcconfig
+
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+    TARGETED_DEVICE_FAMILY: "1"
+    SUPPORTS_MACCATALYST: NO
+    SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD: NO
+    SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD: NO
+    ENABLE_USER_SCRIPT_SANDBOXING: YES
+
+packages:
+  BoloKit:
+    path: Packages/BoloKit
+
+targets:
+  Bolo:
+    type: application
+    platform: iOS
+    sources:
+      - path: App
+        excludes:
+          - "Resources/Audio"
+          - "Resources/Audio/**"
+      - path: App/Resources/Audio
+        type: folder
+        buildPhase: resources
+    dependencies:
+      - package: BoloKit
+    settings:
+      base:
+        INFOPLIST_FILE: Config/Bolo-Info.plist
+        GENERATE_INFOPLIST_FILE: YES
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: ""
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_PREVIEWS: YES
+        SWIFT_EMIT_LOC_STRINGS: NO
+
+schemes:
+  Bolo:
+    build:
+      targets:
+        Bolo: all
+    run:
+      config: Debug
+    archive:
+      config: Release

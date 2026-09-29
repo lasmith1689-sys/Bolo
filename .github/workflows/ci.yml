@@ -9,6 +9,9 @@ concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+
 jobs:
   package:
     name: BoloKit unit tests (macOS)
@@ -33,3 +36,88 @@ jobs:
             exit "$status"
           fi
           echo "::notice title=BoloKit tests::${summary:-no summary} (${skipped} skipped)"
+
+  app:
+    name: iOS app (Simulator build + smoke test)
+    runs-on: macos-26
+    timeout-minutes: 45
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Generate the Xcode project
+        run: |
+          command -v xcodegen >/dev/null || brew install xcodegen >/dev/null
+          xcodegen generate
+
+      - name: Pick a simulator
+        id: sim
+        run: |
+          sim=$(.github/scripts/pick-simulator.sh)
+          echo "Using simulator: $sim"
+          echo "name=${sim%%|*}" >> "$GITHUB_OUTPUT"
+          echo "udid=${sim##*|}" >> "$GITHUB_OUTPUT"
+
+      - name: Build for the Simulator
+        run: |
+          xcodebuild build \
+            -project Bolo.xcodeproj \
+            -scheme Bolo \
+            -configuration Debug \
+            -destination "platform=iOS Simulator,id=${{ steps.sim.outputs.udid }}" \
+            -derivedDataPath DerivedData \
+            -skipPackagePluginValidation \
+            CODE_SIGNING_ALLOWED=NO > build.log 2>&1 || status=$?
+          grep -E "warning: " build.log | grep -v "/DerivedData/" | sort -u | head -40 || true
+          if [ -n "${status:-}" ]; then
+            python3 .github/scripts/annotate_errors.py build.log "Simulator build"
+            exit "$status"
+          fi
+          app=DerivedData/Build/Products/Debug-iphonesimulator/Bolo.app
+          plutil -p "$app/Info.plist" | grep -E "CFBundleIdentifier|CFBundleDisplayName|UIAppFonts|UILaunchScreen" || true
+          ls "$app" | grep -E "\.ttf$|Audio|Assets.car" || true
+
+      - name: Smoke test in the Simulator
+        run: .github/scripts/smoke-test.sh "${{ steps.sim.outputs.udid }}" DerivedData/Build/Products/Debug-iphonesimulator/Bolo.app screenshots
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulator-screenshots
+          path: screenshots
+          if-no-files-found: ignore
+
+      # Screenshots also go to the ci/screenshots branch, where they can be read without
+      # downloading artifacts.
+      - name: Publish screenshots to ci/screenshots
+        if: always() && github.ref == 'refs/heads/main'
+        run: |
+          ls screenshots/*.png >/dev/null 2>&1 || exit 0
+          mkdir -p /tmp/shots
+          for f in screenshots/*.png; do
+            sips -Z 1000 -s format jpeg -s formatOptions 72 "$f" --out "/tmp/shots/$(basename "${f%.png}").jpg" >/dev/null
+          done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -q --orphan ci/screenshots
+          git rm -rfq . >/dev/null
+          git clean -fdxq
+          cp /tmp/shots/*.jpg .
+          echo "Simulator screenshots from ${GITHUB_SHA} (run ${GITHUB_RUN_ID})" > README.md
+          git add -A
+          git commit -qm "Screenshots for ${GITHUB_SHA::7}"
+          git push -qf origin ci/screenshots
+
+  archive:
+    name: App Store archive (dry run, no upload)
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Archive and check entitlements
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}.${{ github.run_attempt }}
+        run: bash .github/scripts/testflight.sh
