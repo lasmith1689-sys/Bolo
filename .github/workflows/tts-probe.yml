@@ -1,14 +1,14 @@
 name: TTS probe
 
-# Research run: tries the open Gujarati TTS candidates on a plain Ubuntu runner and pushes the
-# WAVs and a JSON report to the probe/tts branch for inspection. Not part of the app build.
+# Research run, not part of the app build: tries each open Gujarati TTS candidate on a plain
+# Ubuntu runner and pushes its WAVs and a JSON report to the probe/<engine> branch.
 on:
   workflow_dispatch:
   push:
     branches: [main]
     paths:
       - .github/workflows/tts-probe.yml
-      - tools/tts/probe.py
+      - tools/tts/probe2.py
 
 permissions:
   contents: write
@@ -19,8 +19,13 @@ concurrency:
 
 jobs:
   probe:
+    name: probe (${{ matrix.engine }})
     runs-on: ubuntu-24.04
-    timeout-minutes: 90
+    timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      matrix:
+        engine: [svara, indictts, parler]
     steps:
       - uses: actions/checkout@v5
 
@@ -29,30 +34,39 @@ jobs:
           python-version: "3.11"
 
       - name: Install
+        env:
+          ENGINE: ${{ matrix.engine }}
         run: |
-          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 >/dev/null
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 espeak-ng >/dev/null
           python -m pip install -q --upgrade pip
           pip install -q torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
-          pip install -q "git+https://github.com/huggingface/parler-tts.git" soundfile librosa
-          pip list 2>/dev/null | grep -iE "^(torch|transformers|parler|descript)" || true
+          case "$ENGINE" in
+            svara)    pip install -q "transformers>=4.46,<5" accelerate snac soundfile librosa ;;
+            indictts) pip install -q coqui-tts soundfile librosa ;;
+            parler)   pip install -q "git+https://github.com/huggingface/parler-tts.git" soundfile librosa ;;
+          esac
+          pip list 2>/dev/null | grep -iE "^(torch|transformers|coqui|parler|snac) " || true
           nproc; free -g; df -h / | tail -1
+          lscpu | grep -i "model name"; grep -o -w -E 'avx512f|avx512_bf16|amx_bf16' /proc/cpuinfo | sort -u | tr '\n' ' '; echo
 
       - name: Probe
         env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HF_HUB_DISABLE_PROGRESS_BARS: "1"
           TOKENIZERS_PARALLELISM: "false"
-        run: python tools/tts/probe.py
+        run: python tools/tts/probe2.py ${{ matrix.engine }}
 
-      - name: Publish results to probe/tts
+      - name: Publish results to probe/${{ matrix.engine }}
         if: always()
         run: |
-          [ -d probe-out ] || exit 0
-          mkdir -p /tmp/pub && cp -r probe-out/* /tmp/pub/
+          dir="probe-out/${{ matrix.engine }}"
+          [ -d "$dir" ] || exit 0
+          mkdir -p /tmp/pub && cp -r "$dir"/* /tmp/pub/
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout --orphan probe/tts
+          git checkout -q --orphan "probe/${{ matrix.engine }}"
           git rm -rfq . >/dev/null
           cp -r /tmp/pub/* .
           git add -A
-          git commit -qm "TTS probe results (run ${{ github.run_id }})"
-          git push -f origin probe/tts
+          git commit -qm "TTS probe results for ${{ matrix.engine }} (run ${{ github.run_id }})"
+          git push -qf origin "probe/${{ matrix.engine }}"
