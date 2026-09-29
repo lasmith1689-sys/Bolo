@@ -1,0 +1,125 @@
+{
+ "models": {
+  "ai4bharat/indic-parler-tts": {
+   "gated": "auto",
+   "license": "apache-2.0",
+   "downloads": 308506,
+   "lastModified": "2025-09-24T06:25:30.000Z",
+   "tags": [
+    "license:apache-2.0"
+   ]
+  },
+  "facebook/mms-tts-guj": {
+   "gated": false,
+   "license": "cc-by-nc-4.0",
+   "downloads": 1775,
+   "lastModified": "2023-09-01T13:53:20.000Z",
+   "tags": [
+    "license:cc-by-nc-4.0"
+   ]
+  },
+  "facebook/mms-1b-all": {
+   "gated": false,
+   "license": "cc-by-nc-4.0",
+   "downloads": 270950,
+   "lastModified": "2023-06-15T10:45:44.000Z",
+   "tags": [
+    "license:cc-by-nc-4.0"
+   ]
+  },
+  "ai4bharat/IndicF5": {
+   "gated": "auto",
+   "license": "mit",
+   "downloads": 31932,
+   "lastModified": "2026-03-03T03:06:36.000Z",
+   "tags": [
+    "license:mit"
+   ]
+  },
+  "ai4bharat/indic-parler-tts-pretrained": {
+   "gated": "auto",
+   "license": "apache-2.0",
+   "downloads": 2173,
+   "lastModified": "2024-12-09T11:03:34.000Z",
+   "tags": [
+    "license:apache-2.0"
+   ]
+  }
+ },
+ "clips": [
+  {
+   "name": "mms-0",
+   "model": "mms-tts-guj",
+   "voice": "mms",
+   "text": "કેમ છો?",
+   "sr": 16000,
+   "dur": 0.59,
+   "gen_s_batch": 1.07,
+   "asr": "કેમ છો",
+   "cer": 0.0,
+   "rms": 0.0427
+  },
+  {
+   "name": "mms-1",
+   "model": "mms-tts-guj",
+   "voice": "mms",
+   "text": "હા",
+   "sr": 16000,
+   "dur": 0.29,
+   "gen_s_batch": 0.21,
+   "asr": "",
+   "cer": 1.0,
+   "rms": 0.0209
+  },
+  {
+   "name": "mms-2",
+   "model": "mms-tts-guj",
+   "voice": "mms",
+   "text": "મજામાં, આભાર. તમે?",
+   "sr": 16000,
+   "dur": 1.22,
+   "gen_s_batch": 0.54,
+   "asr": "મજામાં આ ભાર તમે",
+   "cer": 0.0,
+   "rms": 0.0474
+  },
+  {
+   "name": "mms-3",
+   "model": "mms-tts-guj",
+   "voice": "mms",
+   "text": "તમારું નામ શું છે?",
+   "sr": 16000,
+   "dur": 1.17,
+   "gen_s_batch": 0.57,
+   "asr": "તમારું નામ શું છે",
+   "cer": 0.0,
+   "rms": 0.0488
+  },
+  {
+   "name": "mms-4",
+   "model": "mms-tts-guj",
+   "voice": "mms",
+   "text": "દૂધ ક્યાં છે?",
+   "sr": 16000,
+   "dur": 0.86,
+   "gen_s_batch": 0.43,
+   "asr": "દુધ ક્યા છે",
+   "cer": 0.2,
+   "rms": 0.0496
+  },
+  {
+   "name": "mms-5",
+   "model": "mms-tts-guj",
+   "voice": "mms",
+   "text": "મને ગુજરાતી થોડું આવડે છે.",
+   "sr": 16000,
+   "dur": 1.68,
+   "gen_s_batch": 0.69,
+   "asr": "મણે ગુજરાતી થોડું આવડે છે",
+   "cer": 0.048,
+   "rms": 0.0474
+  }
+ ],
+ "parler_error": "OSError('You are trying to access a gated repo.\\nMake sure to have access to it at https://huggingface.co/ai4bharat/indic-parler-tts.\\n401 Client Error. (Request ID: Root=1-6abbd3b6-1d28575440dd5c3c7d66a6bf;adcd74b6-a2ed-43c0-8d2a-9a21fc19202c)\\n\\nCannot access gated repo for url https://huggingface.co/ai4bharat/indic-parler-tts/resolve/main/config.json.\\nAccess to model ai4bharat/indic-parler-tts is restricted. You must have access to it and be authenticated to access it. Please log in.')",
+ "mms_tts_load_s": 3.6
+}
