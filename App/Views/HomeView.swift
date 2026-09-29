@@ -50,8 +50,8 @@ struct HomeView: View {
     }
 
     private var beginTitle: String {
-        let ready = app.readyCount
-        return ready > 0 ? "Begin · \(ready) card\(ready == 1 ? "" : "s")" : "Practise anyway"
+        let cards = app.sessionSize
+        return cards > 0 ? "Begin · \(cards) card\(cards == 1 ? "" : "s")" : "Practise anyway"
     }
 
     private var hero: some View {

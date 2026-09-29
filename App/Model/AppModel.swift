@@ -40,6 +40,7 @@ final class AppModel {
     var dueCount: Int { state.due(in: content, now: now).count }
     var unseenCount: Int { state.unseen(in: content).count }
     var readyCount: Int { state.readyCount(in: content, now: now) }
+    var sessionSize: Int { state.sessionSize(in: content, now: now) }
     var startedCount: Int { content.phrases.count - unseenCount }
     var streak: Int { state.currentStreak(now: now) }
 

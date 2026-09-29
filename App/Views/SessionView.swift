@@ -20,7 +20,7 @@ struct SessionView: View {
             .padding(.horizontal, 20)
             .padding(.top, 8)
 
-            ClothStrip(marks: session.run.marks, total: session.run.gradedCount, live: true)
+            ClothStrip(marks: session.run.marks, total: session.run.gradedCount)
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
 
@@ -66,13 +66,11 @@ struct SessionView: View {
 struct ClothStrip: View {
     let marks: [Mark]
     let total: Int
-    var live = false
 
     var body: some View {
         FlowLayout(spacing: 5, lineSpacing: 5) {
             ForEach(0..<max(total, marks.count), id: \.self) { index in
-                ClothBlock(mark: index < marks.count ? marks[index] : nil,
-                           pressing: live && index == marks.count - 1)
+                ClothBlock(mark: index < marks.count ? marks[index] : nil)
             }
         }
         .accessibilityElement(children: .ignore)
@@ -82,7 +80,6 @@ struct ClothStrip: View {
 
 struct ClothBlock: View {
     let mark: Mark?
-    var pressing = false
     var size: CGFloat = 16
 
     private struct Press {

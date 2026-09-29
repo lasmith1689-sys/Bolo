@@ -42,16 +42,17 @@ struct SettingsView: View {
                 } header: {
                     header("Voice")
                 } footer: {
-                    Text("Switch between the two to compare them. Lines play even with the silent switch on.")
+                    footer("Switch between the two to compare them. Lines play even with the silent switch on.")
                 }
 
                 Section {
                     Button("Reset all progress", role: .destructive) { confirmingReset = true }
+                        .foregroundStyle(Palette.madder)
                         .listRowBackground(Palette.indigo.opacity(0.6))
                 } header: {
                     header("Progress")
                 } footer: {
-                    Text("\(app.startedCount) of \(app.content.phrases.count) phrases started · \(app.state.xp) XP · best run \(app.state.bestRun)")
+                    footer("\(app.startedCount) of \(app.content.phrases.count) phrases started · \(app.state.xp) XP · best run \(app.state.bestRun)")
                 }
 
                 Section {
@@ -87,6 +88,12 @@ struct SettingsView: View {
 
     private func header(_ text: String) -> some View {
         TrackedLabel(text: text, size: 11.5, tracking: 0.2, color: Palette.madder)
+    }
+
+    private func footer(_ text: String) -> some View {
+        Text(text)
+            .font(Typeface.hind(13))
+            .foregroundStyle(Palette.dim)
     }
 
     private func statusRow(title: String, ok: Bool, detail: String) -> some View {

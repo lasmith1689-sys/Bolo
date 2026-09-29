@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: tts-probe
+  group: tts-probe-${{ github.sha }}
   cancel-in-progress: true
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        engine: [svara, indictts, parler]
+        engine: [indictts]
     steps:
       - uses: actions/checkout@v5
 
@@ -42,7 +42,7 @@ jobs:
           pip install -q torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
           case "$ENGINE" in
             svara)    pip install -q "transformers>=4.46,<5" accelerate snac soundfile librosa ;;
-            indictts) pip install -q coqui-tts soundfile librosa ;;
+            indictts) pip install -q "coqui-tts==0.24.2" "transformers==4.46.2" soundfile librosa ;;
             parler)   pip install -q "git+https://github.com/huggingface/parler-tts.git" soundfile librosa ;;
           esac
           pip list 2>/dev/null | grep -iE "^(torch|transformers|coqui|parler|snac) " || true

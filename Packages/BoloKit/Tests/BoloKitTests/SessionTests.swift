@@ -49,6 +49,24 @@ final class SessionTests: XCTestCase {
         XCTAssertEqual(Array(plan.items.prefix(10)).filter { $0.mode == .teach }.count, 5)
     }
 
+    func testSessionSizeMatchesTheBuiltSession() {
+        var rng = SplitMix64(seed: 9)
+        var states: [LearnerState] = [LearnerState()]
+        var some = LearnerState()
+        for phrase in content.phrases.prefix(12) { some.progress[phrase.id] = CardProgress(box: 1, seen: 1, due: now) }
+        states.append(some)
+        var all = LearnerState()
+        for phrase in content.phrases { all.progress[phrase.id] = CardProgress(box: 2, seen: 2, due: now) }
+        states.append(all)
+        var none = all
+        for id in none.progress.keys { none.progress[id]?.due = now.addingTimeInterval(9e6) }
+        states.append(none)
+        for state in states {
+            let plan = SessionBuilder.build(content: content, state: state, now: now, canListen: true, rng: &rng)
+            XCTAssertEqual(state.sessionSize(in: content, now: now), plan.items.count)
+        }
+    }
+
     func testReviewModeRules() {
         func mode(_ box: Int, words: Int, listen: Bool = true, rolls: [Double]) -> ExerciseMode {
             var queue = rolls

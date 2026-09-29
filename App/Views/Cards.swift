@@ -1,21 +1,30 @@
 import BoloKit
 import SwiftUI
 
-/// Scrolling card body with the action button pinned underneath.
+/// Scrolling card body with the action button pinned underneath. Scrolls `scrollTarget` into view
+/// when it appears (the conversation revealed after a miss).
 struct CardScaffold<Main: View, Footer: View>: View {
+    var scrollTarget: String?
     @ViewBuilder var content: () -> Main
     @ViewBuilder var footer: () -> Footer
 
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView {
-                content()
-                    .padding(.horizontal, 20)
-                    .padding(.top, 8)
-                    .padding(.bottom, 24)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    content()
+                        .padding(.horizontal, 20)
+                        .padding(.top, 8)
+                        .padding(.bottom, 24)
+                }
+                .scrollIndicators(.hidden)
+                .scrollBounceBehavior(.basedOnSize)
+                .task(id: scrollTarget) {
+                    guard let target = scrollTarget else { return }
+                    try? await Task.sleep(for: .milliseconds(280))
+                    withAnimation(.easeInOut(duration: 0.4)) { proxy.scrollTo(target, anchor: .top) }
+                }
             }
-            .scrollIndicators(.hidden)
-            .scrollBounceBehavior(.basedOnSize)
             footer()
                 .padding(.horizontal, 20)
                 .padding(.top, 10)
@@ -80,7 +89,7 @@ struct ChoiceCard: View {
     private var phrase: Phrase { item.phrase }
 
     var body: some View {
-        CardScaffold {
+        CardScaffold(scrollTarget: session.conversationRevealed ? Verdict.conversationID : nil) {
             VStack(spacing: 0) {
                 ClothPanel {
                     VStack(spacing: 0) { stem }
@@ -235,6 +244,7 @@ struct PressableStyle: ButtonStyle {
 /// "Right · 4 in a row" or "Not quite" with the correction, and on a miss the way back into the
 /// conversation, so the phrase is met again in context rather than just corrected.
 struct Verdict: View {
+    static let conversationID = "conversation"
     @Bindable var session: SessionModel
     let phrase: Phrase
     let correction: String
@@ -265,6 +275,7 @@ struct Verdict: View {
                             ConversationView(sceneID: phrase.scene, targetLine: phrase.line)
                         }
                         .padding(.top, 14)
+                        .id(Verdict.conversationID)
                         .transition(.opacity.combined(with: .move(edge: .top)))
                     } else {
                         Button {
@@ -295,7 +306,7 @@ struct AssembleCard: View {
     let phrase: Phrase
 
     var body: some View {
-        CardScaffold {
+        CardScaffold(scrollTarget: session.conversationRevealed ? Verdict.conversationID : nil) {
             VStack(spacing: 0) {
                 ClothPanel {
                     VStack(spacing: 0) {

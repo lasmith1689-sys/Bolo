@@ -75,6 +75,13 @@ public struct LearnerState: Codable, Sendable, Equatable {
         due(in: content, now: now).count + min(unseen(in: content).count, SessionBuilder.newPerSession)
     }
 
+    /// How many cards the next session will start with (teach cards included), as SessionBuilder builds it.
+    public func sessionSize(in content: Content, now: Date) -> Int {
+        let fresh = min(unseen(in: content).count, SessionBuilder.newPerSession)
+        let dueCount = due(in: content, now: now).count
+        return min(2 * fresh + dueCount, SessionBuilder.gradedCap + fresh)
+    }
+
     /// Records one answer: moves the card between boxes and adds the XP it earned.
     public mutating func record(_ phrase: Phrase, correct: Bool, xp earned: Int, now: Date) {
         progress[phrase.id] = Leitner.grade(progress[phrase.id], correct: correct, now: now)
