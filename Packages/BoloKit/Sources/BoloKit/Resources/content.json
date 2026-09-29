@@ -1,0 +1,1236 @@
+{
+ "version": 1,
+ "units": [
+  {
+   "id": 1,
+   "name": "First words"
+  },
+  {
+   "id": 2,
+   "name": "Meeting people"
+  },
+  {
+   "id": 3,
+   "name": "Getting by"
+  },
+  {
+   "id": 4,
+   "name": "Numbers"
+  },
+  {
+   "id": 5,
+   "name": "Food and drink"
+  },
+  {
+   "id": 6,
+   "name": "People"
+  },
+  {
+   "id": 7,
+   "name": "Out and about"
+  }
+ ],
+ "speakers": [
+  {
+   "name": "Luke",
+   "voice": "male"
+  },
+  {
+   "name": "Meera",
+   "voice": "female"
+  }
+ ],
+ "phrases": [
+  {
+   "id": "a1",
+   "unit": 1,
+   "gu": "કેમ છો?",
+   "ro": "Kem cho?",
+   "en": "How are you?",
+   "scene": "s1",
+   "line": 0,
+   "art": "namaste"
+  },
+  {
+   "id": "a2",
+   "unit": 1,
+   "gu": "મજામાં",
+   "ro": "Majaa maa",
+   "en": "I'm well",
+   "scene": "s1",
+   "line": 1,
+   "art": "lotus"
+  },
+  {
+   "id": "a3",
+   "unit": 1,
+   "gu": "સારું",
+   "ro": "Saaru",
+   "en": "Good / okay",
+   "scene": "s1",
+   "line": 2,
+   "art": "lotus"
+  },
+  {
+   "id": "a4",
+   "unit": 1,
+   "gu": "હા",
+   "ro": "Haa",
+   "en": "Yes",
+   "scene": "s3",
+   "line": 1,
+   "art": "yes"
+  },
+  {
+   "id": "a5",
+   "unit": 1,
+   "gu": "ના",
+   "ro": "Naa",
+   "en": "No",
+   "scene": "s3",
+   "line": 3,
+   "art": "no"
+  },
+  {
+   "id": "a6",
+   "unit": 1,
+   "gu": "આભાર",
+   "ro": "Aabhaar",
+   "en": "Thank you",
+   "scene": "s17",
+   "line": 1,
+   "art": "thanks"
+  },
+  {
+   "id": "a7",
+   "unit": 1,
+   "gu": "માફ કરજો",
+   "ro": "Maaf karjo",
+   "en": "Sorry / excuse me",
+   "scene": "s2",
+   "line": 0,
+   "art": "palm"
+  },
+  {
+   "id": "a8",
+   "unit": 1,
+   "gu": "આવજો",
+   "ro": "Aavjo",
+   "en": "Goodbye",
+   "scene": "s2",
+   "line": 2,
+   "art": "wave"
+  },
+  {
+   "id": "b1",
+   "unit": 2,
+   "gu": "તમારું નામ શું છે?",
+   "ro": "Tamaaru naam shu chhe?",
+   "en": "What's your name?",
+   "scene": "s4",
+   "line": 0,
+   "art": "name"
+  },
+  {
+   "id": "b2",
+   "unit": 2,
+   "gu": "મારું નામ મીરા છે",
+   "ro": "Maaru naam Meera chhe",
+   "en": "My name is Meera",
+   "scene": "s4",
+   "line": 1,
+   "art": "name"
+  },
+  {
+   "id": "b3",
+   "unit": 2,
+   "gu": "તમે ક્યાંથી છો?",
+   "ro": "Tame kyaanthi chho?",
+   "en": "Where are you from?",
+   "scene": "s5",
+   "line": 0,
+   "art": "compass"
+  },
+  {
+   "id": "b4",
+   "unit": 2,
+   "gu": "હું અમેરિકાથી છું",
+   "ro": "Hu Amerikaathi chhu",
+   "en": "I'm from America",
+   "scene": "s5",
+   "line": 1,
+   "art": "compass"
+  },
+  {
+   "id": "b5",
+   "unit": 2,
+   "gu": "મળીને આનંદ થયો",
+   "ro": "Maline aanand thayo",
+   "en": "Nice to meet you",
+   "scene": "s4",
+   "line": 3,
+   "art": "pair"
+  },
+  {
+   "id": "b6",
+   "unit": 2,
+   "gu": "હું",
+   "ro": "Hu",
+   "en": "I",
+   "scene": "s4",
+   "line": 2,
+   "art": "self"
+  },
+  {
+   "id": "b7",
+   "unit": 2,
+   "gu": "તમે",
+   "ro": "Tame",
+   "en": "You (polite)",
+   "scene": "s4",
+   "line": 1,
+   "art": "other"
+  },
+  {
+   "id": "c1",
+   "unit": 3,
+   "gu": "મને સમજાયું નહીં",
+   "ro": "Mane samjaayu nahi",
+   "en": "I didn't understand",
+   "scene": "s7",
+   "line": 0,
+   "art": "ear"
+  },
+  {
+   "id": "c2",
+   "unit": 3,
+   "gu": "ધીમે બોલો",
+   "ro": "Dhime bolo",
+   "en": "Speak slowly",
+   "scene": "s7",
+   "line": 1,
+   "art": "slow"
+  },
+  {
+   "id": "c3",
+   "unit": 3,
+   "gu": "ફરીથી કહો",
+   "ro": "Farithi kaho",
+   "en": "Say that again",
+   "scene": "s7",
+   "line": 2,
+   "art": "again"
+  },
+  {
+   "id": "c4",
+   "unit": 3,
+   "gu": "મને ગુજરાતી થોડું આવડે છે",
+   "ro": "Mane Gujarati thodu aavde chhe",
+   "en": "I know a little Gujarati",
+   "scene": "s6",
+   "line": 1,
+   "art": "drop"
+  },
+  {
+   "id": "c5",
+   "unit": 3,
+   "gu": "આ શું છે?",
+   "ro": "Aa shu chhe?",
+   "en": "What is this?",
+   "scene": "s8",
+   "line": 0,
+   "art": "ask"
+  },
+  {
+   "id": "c6",
+   "unit": 3,
+   "gu": "ક્યાં છે?",
+   "ro": "Kyaa chhe?",
+   "en": "Where is it?",
+   "scene": "s8",
+   "line": 2,
+   "art": "where"
+  },
+  {
+   "id": "c7",
+   "unit": 3,
+   "gu": "ખબર નથી",
+   "ro": "Khabar nathi",
+   "en": "I don't know",
+   "scene": "s8",
+   "line": 3,
+   "art": "empty"
+  },
+  {
+   "id": "d1",
+   "unit": 4,
+   "gu": "એક",
+   "ro": "Ek",
+   "en": "One",
+   "scene": "s15",
+   "line": 1,
+   "numeral": "૧"
+  },
+  {
+   "id": "d2",
+   "unit": 4,
+   "gu": "બે",
+   "ro": "Be",
+   "en": "Two",
+   "scene": "s21",
+   "line": 1,
+   "numeral": "૨"
+  },
+  {
+   "id": "d3",
+   "unit": 4,
+   "gu": "ત્રણ",
+   "ro": "Tran",
+   "en": "Three",
+   "scene": "s9",
+   "line": 1,
+   "numeral": "૩"
+  },
+  {
+   "id": "d4",
+   "unit": 4,
+   "gu": "ચાર",
+   "ro": "Chaar",
+   "en": "Four",
+   "scene": "s22",
+   "line": 1,
+   "numeral": "૪"
+  },
+  {
+   "id": "d5",
+   "unit": 4,
+   "gu": "પાંચ",
+   "ro": "Paanch",
+   "en": "Five",
+   "scene": "s9",
+   "line": 1,
+   "numeral": "૫"
+  },
+  {
+   "id": "d6",
+   "unit": 4,
+   "gu": "છ",
+   "ro": "Chha",
+   "en": "Six",
+   "scene": "s23",
+   "line": 1,
+   "numeral": "૬"
+  },
+  {
+   "id": "d7",
+   "unit": 4,
+   "gu": "સાત",
+   "ro": "Saat",
+   "en": "Seven",
+   "scene": "s24",
+   "line": 1,
+   "numeral": "૭"
+  },
+  {
+   "id": "d8",
+   "unit": 4,
+   "gu": "આઠ",
+   "ro": "Aath",
+   "en": "Eight",
+   "scene": "s18",
+   "line": 1,
+   "numeral": "૮"
+  },
+  {
+   "id": "d9",
+   "unit": 4,
+   "gu": "નવ",
+   "ro": "Nav",
+   "en": "Nine",
+   "scene": "s25",
+   "line": 1,
+   "numeral": "૯"
+  },
+  {
+   "id": "d10",
+   "unit": 4,
+   "gu": "દસ",
+   "ro": "Das",
+   "en": "Ten",
+   "scene": "s26",
+   "line": 1,
+   "numeral": "૧૦"
+  },
+  {
+   "id": "e1",
+   "unit": 5,
+   "gu": "પાણી",
+   "ro": "Paani",
+   "en": "Water",
+   "scene": "s11",
+   "line": 0,
+   "art": "pot"
+  },
+  {
+   "id": "e2",
+   "unit": 5,
+   "gu": "ચા",
+   "ro": "Chaa",
+   "en": "Tea",
+   "scene": "s11",
+   "line": 1,
+   "art": "cup"
+  },
+  {
+   "id": "e3",
+   "unit": 5,
+   "gu": "ખાવાનું",
+   "ro": "Khaavaanu",
+   "en": "Food",
+   "scene": "s10",
+   "line": 1,
+   "art": "thali"
+  },
+  {
+   "id": "e4",
+   "unit": 5,
+   "gu": "મને ભૂખ લાગી છે",
+   "ro": "Mane bhookh laagi chhe",
+   "en": "I'm hungry",
+   "scene": "s10",
+   "line": 0,
+   "art": "hungry"
+  },
+  {
+   "id": "e5",
+   "unit": 5,
+   "gu": "મને તરસ લાગી છે",
+   "ro": "Mane taras laagi chhe",
+   "en": "I'm thirsty",
+   "scene": "s11",
+   "line": 2,
+   "art": "empty"
+  },
+  {
+   "id": "e6",
+   "unit": 5,
+   "gu": "બહુ સરસ",
+   "ro": "Bahu saras",
+   "en": "Very nice",
+   "scene": "s10",
+   "line": 2,
+   "art": "flower"
+  },
+  {
+   "id": "e7",
+   "unit": 5,
+   "gu": "બસ, થયું",
+   "ro": "Bas thayu",
+   "en": "That's enough",
+   "scene": "s12",
+   "line": 1,
+   "art": "palm"
+  },
+  {
+   "id": "e8",
+   "unit": 5,
+   "gu": "મને પાણી જોઈએ છે",
+   "ro": "Mane paani joie chhe",
+   "en": "I want water",
+   "scene": "s11",
+   "line": 0,
+   "art": "want"
+  },
+  {
+   "id": "f1",
+   "unit": 6,
+   "gu": "મમ્મી",
+   "ro": "Mummi",
+   "en": "Mom",
+   "scene": "s14",
+   "line": 0,
+   "art": "elderF"
+  },
+  {
+   "id": "f2",
+   "unit": 6,
+   "gu": "પપ્પા",
+   "ro": "Pappa",
+   "en": "Dad",
+   "scene": "s14",
+   "line": 0,
+   "art": "elderM"
+  },
+  {
+   "id": "f3",
+   "unit": 6,
+   "gu": "ભાઈ",
+   "ro": "Bhai",
+   "en": "Brother",
+   "scene": "s13",
+   "line": 3,
+   "art": "male"
+  },
+  {
+   "id": "f4",
+   "unit": 6,
+   "gu": "બહેન",
+   "ro": "Bahen",
+   "en": "Sister",
+   "scene": "s13",
+   "line": 1,
+   "art": "female"
+  },
+  {
+   "id": "f5",
+   "unit": 6,
+   "gu": "દીકરો",
+   "ro": "Dikro",
+   "en": "Son",
+   "scene": "s15",
+   "line": 0,
+   "art": "male"
+  },
+  {
+   "id": "f6",
+   "unit": 6,
+   "gu": "દીકરી",
+   "ro": "Dikri",
+   "en": "Daughter",
+   "scene": "s15",
+   "line": 0,
+   "art": "female"
+  },
+  {
+   "id": "f7",
+   "unit": 6,
+   "gu": "મિત્ર",
+   "ro": "Mitra",
+   "en": "Friend",
+   "scene": "s16",
+   "line": 0,
+   "art": "pair"
+  },
+  {
+   "id": "f8",
+   "unit": 6,
+   "gu": "ઘર",
+   "ro": "Ghar",
+   "en": "Home",
+   "scene": "s14",
+   "line": 0,
+   "art": "home"
+  },
+  {
+   "id": "g1",
+   "unit": 7,
+   "gu": "ચાલો",
+   "ro": "Chaalo",
+   "en": "Let's go",
+   "scene": "s18",
+   "line": 2,
+   "art": "go"
+  },
+  {
+   "id": "g2",
+   "unit": 7,
+   "gu": "બેસો",
+   "ro": "Beso",
+   "en": "Have a seat",
+   "scene": "s17",
+   "line": 2,
+   "art": "sit"
+  },
+  {
+   "id": "g3",
+   "unit": 7,
+   "gu": "આવો",
+   "ro": "Aavo",
+   "en": "Come in",
+   "scene": "s17",
+   "line": 0,
+   "art": "toran"
+  },
+  {
+   "id": "g4",
+   "unit": 7,
+   "gu": "કેટલા વાગ્યા?",
+   "ro": "Ketla vaagya?",
+   "en": "What time is it?",
+   "scene": "s18",
+   "line": 0,
+   "art": "time"
+  },
+  {
+   "id": "g5",
+   "unit": 7,
+   "gu": "કેટલા પૈસા?",
+   "ro": "Ketla paisa?",
+   "en": "How much is it?",
+   "scene": "s19",
+   "line": 0,
+   "art": "coins"
+  },
+  {
+   "id": "g6",
+   "unit": 7,
+   "gu": "મને ગમે છે",
+   "ro": "Mane game chhe",
+   "en": "I like it",
+   "scene": "s19",
+   "line": 2,
+   "art": "like"
+  },
+  {
+   "id": "g7",
+   "unit": 7,
+   "gu": "આજે",
+   "ro": "Aaje",
+   "en": "Today",
+   "scene": "s20",
+   "line": 0,
+   "art": "sun"
+  },
+  {
+   "id": "g8",
+   "unit": 7,
+   "gu": "કાલે",
+   "ro": "Kaale",
+   "en": "Tomorrow",
+   "scene": "s20",
+   "line": 1,
+   "art": "moon"
+  }
+ ],
+ "scenes": {
+  "s1": [
+   {
+    "speaker": 0,
+    "gu": "કેમ છો?",
+    "en": "How are you?"
+   },
+   {
+    "speaker": 1,
+    "gu": "મજામાં, આભાર. તમે?",
+    "en": "Well, thanks. And you?"
+   },
+   {
+    "speaker": 0,
+    "gu": "સારું છે.",
+    "en": "It's good."
+   }
+  ],
+  "s2": [
+   {
+    "speaker": 0,
+    "gu": "માફ કરજો!",
+    "en": "Sorry!"
+   },
+   {
+    "speaker": 1,
+    "gu": "વાંધો નહીં.",
+    "en": "No problem."
+   },
+   {
+    "speaker": 0,
+    "gu": "આવજો.",
+    "en": "Goodbye."
+   }
+  ],
+  "s3": [
+   {
+    "speaker": 0,
+    "gu": "ચા લેશો?",
+    "en": "Will you have tea?"
+   },
+   {
+    "speaker": 1,
+    "gu": "હા, આભાર.",
+    "en": "Yes, thank you."
+   },
+   {
+    "speaker": 0,
+    "gu": "ખાંડ?",
+    "en": "Sugar?"
+   },
+   {
+    "speaker": 1,
+    "gu": "ના.",
+    "en": "No."
+   }
+  ],
+  "s4": [
+   {
+    "speaker": 0,
+    "gu": "તમારું નામ શું છે?",
+    "en": "What is your name?"
+   },
+   {
+    "speaker": 1,
+    "gu": "મારું નામ મીરા છે. તમે?",
+    "en": "My name is Meera. And you?"
+   },
+   {
+    "speaker": 0,
+    "gu": "હું લ્યુક.",
+    "en": "I'm Luke."
+   },
+   {
+    "speaker": 1,
+    "gu": "મળીને આનંદ થયો.",
+    "en": "Nice to meet you."
+   }
+  ],
+  "s5": [
+   {
+    "speaker": 0,
+    "gu": "તમે ક્યાંથી છો?",
+    "en": "Where are you from?"
+   },
+   {
+    "speaker": 1,
+    "gu": "હું અમેરિકાથી છું.",
+    "en": "I'm from America."
+   },
+   {
+    "speaker": 0,
+    "gu": "બહુ સરસ!",
+    "en": "Very nice!"
+   }
+  ],
+  "s6": [
+   {
+    "speaker": 0,
+    "gu": "તમે ગુજરાતી બોલો છો?",
+    "en": "Do you speak Gujarati?"
+   },
+   {
+    "speaker": 1,
+    "gu": "મને ગુજરાતી થોડું આવડે છે.",
+    "en": "I know a little Gujarati."
+   },
+   {
+    "speaker": 0,
+    "gu": "સરસ!",
+    "en": "Great!"
+   }
+  ],
+  "s7": [
+   {
+    "speaker": 0,
+    "gu": "મને સમજાયું નહીં.",
+    "en": "I didn't understand."
+   },
+   {
+    "speaker": 1,
+    "gu": "ધીમે બોલો?",
+    "en": "Shall I speak slowly?"
+   },
+   {
+    "speaker": 0,
+    "gu": "હા, ફરીથી કહો.",
+    "en": "Yes, say it again."
+   }
+  ],
+  "s8": [
+   {
+    "speaker": 0,
+    "gu": "આ શું છે?",
+    "en": "What is this?"
+   },
+   {
+    "speaker": 1,
+    "gu": "આ ભાખરી છે.",
+    "en": "This is bhakhri."
+   },
+   {
+    "speaker": 0,
+    "gu": "દૂધ ક્યાં છે?",
+    "en": "Where is the milk?"
+   },
+   {
+    "speaker": 1,
+    "gu": "ખબર નથી.",
+    "en": "I don't know."
+   }
+  ],
+  "s9": [
+   {
+    "speaker": 0,
+    "gu": "કેટલા જોઈએ?",
+    "en": "How many do you want?"
+   },
+   {
+    "speaker": 1,
+    "gu": "ત્રણ. ના, પાંચ.",
+    "en": "Three. No, five."
+   },
+   {
+    "speaker": 0,
+    "gu": "પાંચ. બરાબર.",
+    "en": "Five. Right."
+   }
+  ],
+  "s10": [
+   {
+    "speaker": 0,
+    "gu": "મને ભૂખ લાગી છે.",
+    "en": "I'm hungry."
+   },
+   {
+    "speaker": 1,
+    "gu": "ખાવાનું તૈયાર છે.",
+    "en": "The food is ready."
+   },
+   {
+    "speaker": 0,
+    "gu": "બહુ સરસ!",
+    "en": "Very nice!"
+   }
+  ],
+  "s11": [
+   {
+    "speaker": 0,
+    "gu": "મને પાણી જોઈએ છે.",
+    "en": "I want water."
+   },
+   {
+    "speaker": 1,
+    "gu": "ચા પણ?",
+    "en": "Tea as well?"
+   },
+   {
+    "speaker": 0,
+    "gu": "હા. મને તરસ લાગી છે.",
+    "en": "Yes. I'm thirsty."
+   }
+  ],
+  "s12": [
+   {
+    "speaker": 0,
+    "gu": "હજી લેશો?",
+    "en": "Will you have more?"
+   },
+   {
+    "speaker": 1,
+    "gu": "બસ, થયું. આભાર.",
+    "en": "That's enough. Thank you."
+   }
+  ],
+  "s13": [
+   {
+    "speaker": 0,
+    "gu": "આ કોણ છે?",
+    "en": "Who is this?"
+   },
+   {
+    "speaker": 1,
+    "gu": "આ મારી બહેન છે.",
+    "en": "This is my sister."
+   },
+   {
+    "speaker": 0,
+    "gu": "અને આ?",
+    "en": "And this?"
+   },
+   {
+    "speaker": 1,
+    "gu": "મારો ભાઈ.",
+    "en": "My brother."
+   }
+  ],
+  "s14": [
+   {
+    "speaker": 0,
+    "gu": "મમ્મી પપ્પા ઘરે છે?",
+    "en": "Are mom and dad at home?"
+   },
+   {
+    "speaker": 1,
+    "gu": "હા, ઘરે છે.",
+    "en": "Yes, they're home."
+   }
+  ],
+  "s15": [
+   {
+    "speaker": 0,
+    "gu": "દીકરો કે દીકરી?",
+    "en": "A son or a daughter?"
+   },
+   {
+    "speaker": 1,
+    "gu": "એક દીકરી.",
+    "en": "One daughter."
+   }
+  ],
+  "s16": [
+   {
+    "speaker": 0,
+    "gu": "આ મારો મિત્ર છે.",
+    "en": "This is my friend."
+   },
+   {
+    "speaker": 1,
+    "gu": "મળીને આનંદ થયો.",
+    "en": "Nice to meet you."
+   }
+  ],
+  "s17": [
+   {
+    "speaker": 0,
+    "gu": "આવો, આવો!",
+    "en": "Come in, come in!"
+   },
+   {
+    "speaker": 1,
+    "gu": "આભાર.",
+    "en": "Thank you."
+   },
+   {
+    "speaker": 0,
+    "gu": "બેસો.",
+    "en": "Have a seat."
+   }
+  ],
+  "s18": [
+   {
+    "speaker": 0,
+    "gu": "કેટલા વાગ્યા?",
+    "en": "What time is it?"
+   },
+   {
+    "speaker": 1,
+    "gu": "આઠ.",
+    "en": "Eight."
+   },
+   {
+    "speaker": 0,
+    "gu": "ચાલો!",
+    "en": "Let's go!"
+   }
+  ],
+  "s19": [
+   {
+    "speaker": 0,
+    "gu": "આ કેટલા પૈસા?",
+    "en": "How much is this?"
+   },
+   {
+    "speaker": 1,
+    "gu": "સો રૂપિયા.",
+    "en": "One hundred rupees."
+   },
+   {
+    "speaker": 0,
+    "gu": "મને ગમે છે.",
+    "en": "I like it."
+   }
+  ],
+  "s20": [
+   {
+    "speaker": 0,
+    "gu": "આજે કે કાલે?",
+    "en": "Today or tomorrow?"
+   },
+   {
+    "speaker": 1,
+    "gu": "કાલે.",
+    "en": "Tomorrow."
+   }
+  ],
+  "s21": [
+   {
+    "speaker": 0,
+    "gu": "કેટલા જોઈએ?",
+    "en": "How many do you want?"
+   },
+   {
+    "speaker": 1,
+    "gu": "બે.",
+    "en": "Two."
+   },
+   {
+    "speaker": 0,
+    "gu": "બે. બરાબર.",
+    "en": "Two. Right."
+   }
+  ],
+  "s22": [
+   {
+    "speaker": 0,
+    "gu": "કેટલા વાગ્યા?",
+    "en": "What time is it?"
+   },
+   {
+    "speaker": 1,
+    "gu": "ચાર.",
+    "en": "Four."
+   },
+   {
+    "speaker": 0,
+    "gu": "ચાલો!",
+    "en": "Let's go!"
+   }
+  ],
+  "s23": [
+   {
+    "speaker": 0,
+    "gu": "કેટલા જોઈએ?",
+    "en": "How many do you want?"
+   },
+   {
+    "speaker": 1,
+    "gu": "છ.",
+    "en": "Six."
+   },
+   {
+    "speaker": 0,
+    "gu": "છ. બરાબર.",
+    "en": "Six. Right."
+   }
+  ],
+  "s24": [
+   {
+    "speaker": 0,
+    "gu": "કેટલા વાગ્યા?",
+    "en": "What time is it?"
+   },
+   {
+    "speaker": 1,
+    "gu": "સાત.",
+    "en": "Seven."
+   },
+   {
+    "speaker": 0,
+    "gu": "ચાલો!",
+    "en": "Let's go!"
+   }
+  ],
+  "s25": [
+   {
+    "speaker": 0,
+    "gu": "કેટલા જોઈએ?",
+    "en": "How many do you want?"
+   },
+   {
+    "speaker": 1,
+    "gu": "નવ.",
+    "en": "Nine."
+   },
+   {
+    "speaker": 0,
+    "gu": "નવ. બરાબર.",
+    "en": "Nine. Right."
+   }
+  ],
+  "s26": [
+   {
+    "speaker": 0,
+    "gu": "આ કેટલા પૈસા?",
+    "en": "How much is this?"
+   },
+   {
+    "speaker": 1,
+    "gu": "દસ રૂપિયા.",
+    "en": "Ten rupees."
+   },
+   {
+    "speaker": 0,
+    "gu": "બરાબર.",
+    "en": "Right."
+   }
+  ]
+ },
+ "gloss": {
+  "અને": "and",
+  "અમેરિકાથી": "from America",
+  "આ": "this",
+  "આજે": "today",
+  "આઠ": "eight",
+  "આનંદ": "joy",
+  "આભાર": "thank you",
+  "આવજો": "goodbye",
+  "આવડે": "know how",
+  "આવો": "come in",
+  "એક": "one",
+  "કરજો": "do (polite)",
+  "કહો": "say",
+  "કાલે": "tomorrow",
+  "કે": "or",
+  "કેટલા": "how many",
+  "કેમ": "how",
+  "કોણ": "who",
+  "ક્યાં": "where",
+  "ક્યાંથી": "from where",
+  "ખબર": "knowledge",
+  "ખાંડ": "sugar",
+  "ખાવાનું": "food",
+  "ગમે": "is pleasing",
+  "ગુજરાતી": "Gujarati",
+  "ઘર": "home",
+  "ઘરે": "at home",
+  "ચા": "tea",
+  "ચાર": "four",
+  "ચાલો": "let's go",
+  "છ": "six",
+  "છું": "am",
+  "છે": "is",
+  "છો": "are (you)",
+  "જોઈએ": "is wanted",
+  "તમારું": "your",
+  "તમે": "you",
+  "તરસ": "thirst",
+  "તૈયાર": "ready",
+  "ત્રણ": "three",
+  "થયું": "done",
+  "થયો": "happened",
+  "થોડું": "a little",
+  "દસ": "ten",
+  "દીકરી": "daughter",
+  "દીકરો": "son",
+  "દૂધ": "milk",
+  "ધીમે": "slowly",
+  "નથી": "is not",
+  "નવ": "nine",
+  "નહીં": "not",
+  "ના": "no",
+  "નામ": "name",
+  "પણ": "also",
+  "પપ્પા": "dad",
+  "પાંચ": "five",
+  "પાણી": "water",
+  "પૈસા": "money",
+  "ફરીથી": "again",
+  "બરાબર": "correct",
+  "બસ": "enough",
+  "બહુ": "very",
+  "બહેન": "sister",
+  "બે": "two",
+  "બેસો": "sit",
+  "બોલો": "speak",
+  "ભાઈ": "brother",
+  "ભાખરી": "bhakhri (flatbread)",
+  "ભૂખ": "hunger",
+  "મજામાં": "in good spirits",
+  "મને": "to me",
+  "મમ્મી": "mom",
+  "મળીને": "having met",
+  "માફ": "pardon",
+  "મારી": "my (f.)",
+  "મારું": "my",
+  "મારો": "my (m.)",
+  "મિત્ર": "friend",
+  "મીરા": "Meera",
+  "રૂપિયા": "rupees",
+  "લાગી": "is felt",
+  "લેશો": "will you take",
+  "લ્યુક": "Luke",
+  "વાંધો": "objection",
+  "વાગ્યા": "o'clock",
+  "શું": "what",
+  "સમજાયું": "understood",
+  "સરસ": "nice",
+  "સાત": "seven",
+  "સારું": "good",
+  "સો": "hundred",
+  "હજી": "still / more",
+  "હા": "yes",
+  "હું": "I"
+ },
+ "roman": {
+  "અને": "ane",
+  "અમેરિકાથી": "Amerikaathi",
+  "આ": "aa",
+  "આજે": "aaje",
+  "આઠ": "aath",
+  "આનંદ": "aanand",
+  "આભાર": "aabhaar",
+  "આવજો": "aavjo",
+  "આવડે": "aavde",
+  "આવો": "aavo",
+  "એક": "ek",
+  "કરજો": "karjo",
+  "કહો": "kaho",
+  "કાલે": "kaale",
+  "કે": "ke",
+  "કેટલા": "ketla",
+  "કેમ": "kem",
+  "કોણ": "kon",
+  "ક્યાં": "kyaa",
+  "ક્યાંથી": "kyaanthi",
+  "ખબર": "khabar",
+  "ખાંડ": "khaand",
+  "ખાવાનું": "khaavaanu",
+  "ગમે": "game",
+  "ગુજરાતી": "Gujarati",
+  "ઘર": "ghar",
+  "ઘરે": "ghare",
+  "ચા": "chaa",
+  "ચાર": "chaar",
+  "ચાલો": "chaalo",
+  "છ": "chha",
+  "છું": "chhu",
+  "છે": "chhe",
+  "છો": "chho",
+  "જોઈએ": "joie",
+  "તમારું": "tamaaru",
+  "તમે": "tame",
+  "તરસ": "taras",
+  "તૈયાર": "taiyaar",
+  "ત્રણ": "tran",
+  "થયું": "thayu",
+  "થયો": "thayo",
+  "થોડું": "thodu",
+  "દસ": "das",
+  "દીકરી": "dikri",
+  "દીકરો": "dikro",
+  "દૂધ": "doodh",
+  "ધીમે": "dhime",
+  "નથી": "nathi",
+  "નવ": "nav",
+  "નહીં": "nahi",
+  "ના": "naa",
+  "નામ": "naam",
+  "પણ": "pan",
+  "પપ્પા": "pappa",
+  "પાંચ": "paanch",
+  "પાણી": "paani",
+  "પૈસા": "paisa",
+  "ફરીથી": "farithi",
+  "બરાબર": "baraabar",
+  "બસ": "bas",
+  "બહુ": "bahu",
+  "બહેન": "bahen",
+  "બે": "be",
+  "બેસો": "beso",
+  "બોલો": "bolo",
+  "ભાઈ": "bhai",
+  "ભાખરી": "bhaakhri",
+  "ભૂખ": "bhookh",
+  "મજામાં": "majaa maa",
+  "મને": "mane",
+  "મમ્મી": "mummi",
+  "મળીને": "maline",
+  "માફ": "maaf",
+  "મારી": "maari",
+  "મારું": "maaru",
+  "મારો": "maaro",
+  "મિત્ર": "mitra",
+  "મીરા": "Meera",
+  "રૂપિયા": "rupiyaa",
+  "લાગી": "laagi",
+  "લેશો": "lesho",
+  "લ્યુક": "Luke",
+  "વાંધો": "vaandho",
+  "વાગ્યા": "vaagya",
+  "શું": "shu",
+  "સમજાયું": "samjaayu",
+  "સરસ": "saras",
+  "સાત": "saat",
+  "સારું": "saaru",
+  "સો": "so",
+  "હજી": "haji",
+  "હા": "haa",
+  "હું": "hu"
+ }
+}

@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  package:
+    name: BoloKit unit tests (macOS)
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: swift test
+        run: |
+          swift test --package-path Packages/BoloKit > test.log 2>&1 || status=$?
+          grep -E "Executed [0-9]+ tests|error: |skipped" test.log | sort -u | head -60 || true
+          summary=$(grep -E "Executed [0-9]+ tests" test.log | tail -1 | sed -E 's/^ +//')
+          skipped=$(grep -cE "Test Case .* skipped" test.log || true)
+          if [ -n "${status:-}" ]; then
+            python3 .github/scripts/annotate_errors.py test.log "BoloKit tests"
+            exit "$status"
+          fi
+          echo "::notice title=BoloKit tests::${summary:-no summary} (${skipped} skipped)"
