@@ -1,0 +1,169 @@
+name: Audio lab
+
+# Research runs behind the recorded clips (tools/tts/lab.py). Nothing here touches main: results,
+# transcripts and the audio (m4a) are pushed to the lab/results branch, one folder per run.
+on:
+  workflow_dispatch:
+  push:
+    branches: [lab/work]
+    paths:
+      - tools/tts/**
+      - .github/workflows/audio-lab.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: audio-lab
+  cancel-in-progress: true
+
+env:
+  HF_HUB_DISABLE_PROGRESS_BARS: "1"
+  TOKENIZERS_PARALLELISM: "false"
+  PIP_TORCH: torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+
+jobs:
+  refs:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg >/dev/null
+          pip install -q numpy soundfile huggingface_hub
+      - run: python tools/tts/lab.py refs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gen-refs
+          path: lab-out
+
+  indic:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 >/dev/null
+          pip install -q $PIP_TORCH
+          pip install -q "coqui-tts==0.25.3" "transformers==4.46.2" click soundfile librosa
+      - run: python tools/tts/lab.py gen-indic
+      - uses: actions/upload-artifact@v4
+        with:
+          name: gen-indic
+          path: lab-out
+
+  svara:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 >/dev/null
+          pip install -q $PIP_TORCH
+          pip install -q "transformers==4.46.2" snac soundfile librosa huggingface_hub
+          pip install -q --prefer-binary llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+          python -c "import llama_cpp; print('llama_cpp', llama_cpp.__version__)"
+          lscpu | grep -iE "model name|flags" | cut -c1-300
+      - run: python tools/tts/lab.py gen-svara --shard ${{ matrix.shard }} --shards 12
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: gen-svara-${{ matrix.shard }}
+          path: lab-out
+          if-no-files-found: ignore
+
+  score:
+    needs: [refs, indic, svara]
+    if: always()
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - rec: mms
+            sets: ""
+          - rec: whisper
+            sets: ""
+          - rec: vakyansh
+            sets: ""
+          - rec: whisper-v3
+            sets: "indic-old,svara-probe,controls,humans-words,humans-sentences,indic-carrier"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: gen-*
+          path: lab-out
+          merge-multiple: true
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 >/dev/null
+          pip install -q $PIP_TORCH
+          pip install -q "transformers==4.46.2" soundfile librosa
+      - run: python tools/tts/lab.py score --rec ${{ matrix.rec }} --sets "${{ matrix.sets }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: score-${{ matrix.rec }}
+          path: lab-out/scores
+
+  collect:
+    needs: score
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: gen-*
+          path: lab-out
+          merge-multiple: true
+      - uses: actions/download-artifact@v5
+        with:
+          pattern: score-*
+          path: lab-out/scores
+          merge-multiple: true
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg >/dev/null
+          pip install -q --break-system-packages numpy soundfile
+      - run: python3 tools/tts/lab.py collect
+      - name: Publish to lab/results
+        run: |
+          mkdir -p /tmp/pub && cp -r lab-pub /tmp/pub/run-${{ github.run_id }}
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git fetch -q origin lab/results 2>/dev/null; then
+            git checkout -q -B lab/results FETCH_HEAD
+          else
+            git checkout -q --orphan lab/results && git rm -rfq . >/dev/null
+          fi
+          git clean -fdxq
+          cp -r /tmp/pub/run-${{ github.run_id }} .
+          git add -A
+          git commit -qm "Audio lab results (run ${{ github.run_id }}, ${GITHUB_SHA::7})"
+          for i in 1 2 3; do git push -q origin lab/results && exit 0; sleep 10; done
+          exit 1
