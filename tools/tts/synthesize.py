@@ -251,7 +251,12 @@ class Recognizer:
 
     def hear(self, audio, sr):
         import librosa
+        import numpy as np
         y = librosa.resample(audio, orig_sr=sr, target_sr=16000) if sr != 16000 else audio
+        # The recognizer needs some context: a word under a second long often decodes to nothing.
+        # Half a second of silence either side tells a recognizer miss from a bad clip.
+        pad = np.zeros(8000, dtype="float32")
+        y = np.concatenate([pad, np.asarray(y, dtype="float32"), pad])
         with self.torch.inference_mode():
             ids = self.model(**self.proc(y, sampling_rate=16000, return_tensors="pt")).logits.argmax(-1)[0]
         return self.proc.decode(ids)
