@@ -157,14 +157,26 @@ def humans_lingualibre(limit=80):
         if "continue" not in d:
             break
         cont = {"sroffset": d["continue"]["sroffset"]}
-    print(f"Lingua Libre: {len(titles)} Gujarati files", flush=True)
-    rx = re.compile(r"^File:LL-Q5137 \(guj\)-(.+?)-(.+)\.(wav|ogg|flac|mp3)$")
+    for cat in ["Category:Lingua Libre pronunciation-guj", "Category:Gujarati pronunciation"]:
+        cont = {}
+        while len(titles) < 800:
+            q = {"action": "query", "list": "categorymembers", "cmtitle": cat, "cmtype": "file", "cmlimit": 200,
+                 "format": "json", **cont}
+            d = http_json("https://commons.wikimedia.org/w/api.php?" + urllib.parse.urlencode(q))
+            titles += [m["title"] for m in d.get("query", {}).get("categorymembers", [])]
+            if "continue" not in d:
+                break
+            cont = {"cmcontinue": d["continue"]["cmcontinue"]}
+    titles = sorted(set(titles))
+    print(f"Commons: {len(titles)} Gujarati pronunciation files; first: {titles[:5]}", flush=True)
+    gh_note("Commons Gujarati pronunciations", [f"{len(titles)} files"] + titles[:8])
+    rx = re.compile(r"^File:(?:LL-Q5137 \(guj\)-(.+?)-|Gu-?()[ _-]?)(.+)\.(wav|ogg|oga|flac|mp3)$", re.I)
     items, speakers = [], {}
     for t in titles:
         m = rx.match(t)
         if not m:
             continue
-        speaker, word = m.group(1), m.group(2).strip()
+        speaker, word = m.group(1) or "commons", m.group(3).strip()
         if not re.fullmatch(r"[઀-૿ ]+", word):
             continue
         # Spread the sample over speakers.
@@ -178,7 +190,7 @@ def humans_lingualibre(limit=80):
             print(f"skip {t}: {e}", flush=True)
             continue
         i = cid("ll", t)
-        p = os.path.join(OUT, "humans-words", i + "." + m.group(3))
+        p = os.path.join(OUT, "humans-words", i + "." + m.group(4))
         os.makedirs(os.path.dirname(p), exist_ok=True)
         open(p, "wb").write(data)
         try:
@@ -217,7 +229,9 @@ def humans_fleurs(limit=30):
 
 
 # ---------------------------------------------------------------------------------------------
-CARRIER = "આ શબ્દ સાંભળો."
+CARRIERS = {"c1": "આ શબ્દ સાંભળો.", "c2": "હવે બોલો.", "c3": "ફરીથી સાંભળો."}
+# Played before a clip when it is scored "in context" (words that are not in the course).
+CONTEXT = "હવામાન ખૂબ ઠંડું હતું."
 
 
 def indic_detail(tts, text, voice, length_scale=1.0):
@@ -246,52 +260,49 @@ def indic_detail(tts, text, voice, length_scale=1.0):
     return wav, captured["dr"]
 
 
+def carrier_cut(tts, text, voice, carrier):
+    """Says `text` after the carrier sentence and cuts it out at the quietest point of the pause
+    between them, found from FastPitch's own duration predictions."""
+    tok = tts.syn.tts_model.tokenizer
+    hop, sr = 256, tts.sr
+    wav, dr = indic_detail(tts, f"{carrier} {text}", voice)
+    n_prefix = len(tok.text_to_ids(carrier))  # the carrier ends with "."; a space token follows
+    bounds = np.concatenate([[0], np.cumsum(dr)]) * hop
+    lo, hi = int(bounds[n_prefix - 1]), int(bounds[n_prefix + 1])
+    frame = int(sr * 0.01)
+    seg = wav[lo:hi]
+    env = np.array([np.sqrt(np.mean(seg[j:j + frame] ** 2)) for j in range(0, max(len(seg) - frame, 1), frame)])
+    quiet = np.where(env <= env.min() * 2 + 1e-5)[0]
+    cut = lo + int((quiet[-1] if len(quiet) else len(env) // 2) * frame)
+    end = int(bounds[-1])  # the synthesizer appends silence after the last token
+    return wav[cut:end], {"cut_s": round(cut / sr, 3), "pause_s": [round(lo / sr, 3), round(hi / sr, 3)]}
+
+
 def cmd_gen_indic(args):
     import torch
     torch.set_num_threads(os.cpu_count() or 4)
     tts = syn.IndicTTS()
-    tok = tts.syn.tts_model.tokenizer
-    hop = 256
     sr = tts.sr
-    sets = {"indic-nosplit": [], "indic-slow": [], "indic-carrier": []}
-    ratios = []
+    ctx = []
+    for voice in ("male", "female"):
+        wav, dr = indic_detail(tts, CONTEXT, voice)
+        write_wav(os.path.join(OUT, "context", voice + ".wav"), wav[:int(dr.sum() * 256)], sr)
+        ctx.append({"id": voice, "text": CONTEXT, "voice": voice, "variant": "context", "engine": "indictts"})
+    save_meta("context", ctx)
+    sets = {"indic-nosplit": []} | {f"indic-{c}": [] for c in CARRIERS}
     for voice, text in syn.requests():
-        nwords = len(syn.words(text))
         wav, dr = indic_detail(tts, text, voice)
-        ratios.append(len(wav) / max(dr.sum(), 1))
         i = cid("nosplit", voice, text)
-        write_wav(os.path.join(OUT, "indic-nosplit", i + ".wav"), wav, sr)
-        sets["indic-nosplit"].append({"id": i, "text": text, "voice": voice, "variant": "nosplit", "engine": "indictts",
-                                      "dur_frames": dr.astype(int).tolist(), "n_ids": len(tok.text_to_ids(text))})
-        if nwords > 2:
-            continue
-        wav, dr = indic_detail(tts, text, voice, length_scale=1.2)
-        i = cid("slow", voice, text)
-        write_wav(os.path.join(OUT, "indic-slow", i + ".wav"), wav, sr)
-        sets["indic-slow"].append({"id": i, "text": text, "voice": voice, "variant": "slow1.2", "engine": "indictts",
-                                   "dur_frames": dr.astype(int).tolist()})
-        # Carrier: say it after a short sentence and cut it out in the pause between them.
-        full = f"{CARRIER} {text}"
-        wav, dr = indic_detail(tts, full, voice)
-        n_prefix = len(tok.text_to_ids(CARRIER))  # the carrier ends with "."; a space token follows
-        bounds = np.concatenate([[0], np.cumsum(dr)]) * hop
-        pause_lo, pause_hi = int(bounds[n_prefix - 1]), int(bounds[n_prefix + 1])
-        # Cut at the quietest 10 ms inside the pause, preferring the latest quiet point.
-        frame = int(sr * 0.01)
-        seg = wav[pause_lo:pause_hi]
-        env = np.array([np.sqrt(np.mean(seg[j:j + frame] ** 2)) for j in range(0, max(len(seg) - frame, 1), frame)])
-        quiet = np.where(env <= env.min() * 2 + 1e-5)[0]
-        cut = pause_lo + int((quiet[-1] if len(quiet) else len(env) // 2) * frame)
-        i = cid("carrier", voice, text)
-        write_wav(os.path.join(OUT, "indic-carrier", i + ".wav"), wav[cut:], sr)
-        write_wav(os.path.join(OUT, "indic-carrier-full", i + ".wav"), wav, sr)
-        sets["indic-carrier"].append({"id": i, "text": text, "voice": voice, "variant": "carrier", "engine": "indictts",
-                                      "cut_s": round(cut / sr, 3), "pause_s": [round(pause_lo / sr, 3), round(pause_hi / sr, 3)],
-                                      "dur_frames": dr.astype(int).tolist(), "n_prefix": n_prefix})
+        write_wav(os.path.join(OUT, "indic-nosplit", i + ".wav"), wav[:int(dr.sum() * 256)], sr)
+        sets["indic-nosplit"].append({"id": i, "text": text, "voice": voice, "variant": "nosplit", "engine": "indictts"})
+        for c, carrier in CARRIERS.items():
+            cut, info = carrier_cut(tts, text, voice, carrier)
+            i = cid(c, voice, text)
+            write_wav(os.path.join(OUT, f"indic-{c}", i + ".wav"), cut, sr)
+            sets[f"indic-{c}"].append({"id": i, "text": text, "voice": voice, "variant": c, "engine": "indictts", **info})
     for k, v in sets.items():
         save_meta(k, v)
-    gh_note("Indic-TTS lab", [f"samples per duration frame: {min(ratios):.1f}-{max(ratios):.1f} (hop {hop})"] +
-            [f"{k}: {len(v)} clips" for k, v in sets.items()])
+    gh_note("Indic-TTS lab", [f"{k}: {len(v)} clips" for k, v in sets.items()])
 
 
 # ---------------------------------------------------------------------------------------------
@@ -519,11 +530,25 @@ def cmd_score(args):
             if os.path.exists(p):
                 clips.append((f"{name}/{it['id']}", p))
     clips = clips[args.shard::args.shards]
+    # Each voice's context sentence: clips are also heard right after it (key suffix "#ctx"), so a
+    # recognizer that struggles with a lone short word gets the same audio in a sentence.
+    ctx = {}
+    if args.rec != "utmos":
+        for v in ("male", "female"):
+            p = os.path.join(OUT, "context", v + ".wav")
+            if os.path.exists(p):
+                ctx[v] = np.concatenate([read16k(p), np.zeros(int(16000 * 0.3), dtype="float32")])
+    voice_of = {f"{name}/{it['id']}": it.get("voice") for name, items in all_sets(only) for it in items}
     t0 = time.time()
     rec = asr.load(args.rec)
     load_s = time.time() - t0
     t0 = time.time()
     audio = [read16k(p) for _, p in clips]
+    for (k, _), a in list(zip(clips, audio)):
+        v = voice_of.get(k)
+        if v in ctx and not k.startswith("context/"):
+            clips.append((k + "#ctx", None))
+            audio.append(np.concatenate([ctx[v], a]))
     heard = {}
     step = 16
     for i in range(0, len(clips), step):
@@ -555,10 +580,17 @@ def cmd_collect(args):
             y = read16k(wav)
             row = {**it, "set": name, "key": k, "dur": round(len(y) / 16000, 3)}
             for r in recs:
+                if r == "utmos":
+                    if k in scores[r]:
+                        row["utmos"] = float(scores[r][k])
+                    continue
                 if k in scores[r]:
                     row[f"{r}_heard"] = scores[r][k]
                     row[f"{r}_cer"] = round(asr.cer(it["text"], scores[r][k], fold=False), 3)
                     row[f"{r}_fcer"] = round(asr.cer(it["text"], scores[r][k], fold=True), 3)
+                if k + "#ctx" in scores[r]:
+                    row[f"{r}_ctx_heard"] = scores[r][k + "#ctx"]
+                    row[f"{r}_ctx_fcer"] = round(asr.cer_after(CONTEXT, it["text"], scores[r][k + "#ctx"]), 3)
             rows.append(row)
             m4a = os.path.join(pub, "audio", name, it["id"] + ".m4a")
             os.makedirs(os.path.dirname(m4a), exist_ok=True)
@@ -567,6 +599,7 @@ def cmd_collect(args):
     os.makedirs(pub, exist_ok=True)
     json.dump({"recs": recs, "rows": rows}, open(os.path.join(pub, "results.json"), "w", encoding="utf-8"),
               ensure_ascii=False, indent=0)
+    recs = [r for r in recs if r != "utmos"]
     lines = ["| set | n | " + " | ".join(f"{r} fCER<=0.15 / empty" for r in recs) + " |",
              "|---|---|" + "---|" * len(recs)]
     notes = []

@@ -88,12 +88,23 @@ class FastWhisper:
     """The same Gujarati Whisper converted to CTranslate2 int8 (faster-whisper): several times faster
     on a CPU, greedy decoding, no timestamps, no conditioning on earlier text."""
 
-    def __init__(self, repo, out="/tmp/ct2-whisper-gu"):
+    def __init__(self, repo, base="openai/whisper-medium", out="/tmp/ct2-whisper-gu"):
         import os
-        import subprocess
         if not os.path.exists(os.path.join(out, "model.bin")):
-            subprocess.run(["ct2-transformers-converter", "--model", repo, "--output_dir", out,
-                            "--quantization", "int8", "--force"], check=True)
+            import ctranslate2
+            from transformers import GenerationConfig, WhisperForConditionalGeneration, WhisperTokenizerFast
+            from transformers import WhisperFeatureExtractor
+            hf = "/tmp/whisper-gu-hf"
+            model = WhisperForConditionalGeneration.from_pretrained(repo)
+            if not hasattr(model.generation_config, "lang_to_id"):
+                model.generation_config = GenerationConfig.from_pretrained(base)
+            model.save_pretrained(hf)
+            WhisperTokenizerFast.from_pretrained(repo).save_pretrained(hf)
+            WhisperFeatureExtractor.from_pretrained(repo).save_pretrained(hf)
+            del model
+            gc.collect()
+            ctranslate2.converters.TransformersConverter(
+                hf, copy_files=["tokenizer.json", "preprocessor_config.json"]).convert(out, quantization="int8", force=True)
         from faster_whisper import WhisperModel
         self.model = WhisperModel(out, device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
 
@@ -106,10 +117,27 @@ class FastWhisper:
         return [self.hear(y) for y in ys]
 
 
+class UTMOS:
+    """UTMOS22 (strong) predicted naturalness, 1-5. Trained on English speech: a rough guide only."""
+
+    def __init__(self):
+        import torch
+        self.torch = torch
+        self.model = torch.hub.load("tarepan/SpeechMOS:v1.2.0", "utmos22_strong", trust_repo=True)
+
+    def hear_many(self, ys):
+        out = []
+        for y in ys:
+            with self.torch.inference_mode():
+                out.append(f"{float(self.model(self.torch.from_numpy(y).unsqueeze(0), SR)):.3f}")
+        return out
+
+
 RECOGNIZERS = {
     "mms": lambda: CTC("facebook/mms-1b-all", target_lang="guj"),
     "whisper": lambda: Whisper("vasista22/whisper-gujarati-medium", base="openai/whisper-medium"),
     "whisper-ct2": lambda: FastWhisper("vasista22/whisper-gujarati-medium"),
+    "utmos": lambda: UTMOS(),
     "vakyansh": lambda: CTC("Harveenchadha/vakyansh-wav2vec2-gujarati-gnm-100"),
     "whisper-v3": lambda: Whisper("openai/whisper-large-v3", batch=4),
 }
@@ -155,6 +183,18 @@ def edits(a, b):
 def cer(ref, hyp, fold=True):
     a, b = norm(ref, fold), norm(hyp, fold)
     return edits(a, b) / len(a) if a else 0.0
+
+
+def cer_after(prefix, ref, hyp, fold=True):
+    """CER of `ref` against what the recognizer heard after `prefix` (the clip was played right after
+    a known sentence, so a very short clip is heard in context). The split point is the one that
+    best explains the whole transcript as prefix + ref."""
+    p, r, h = norm(prefix, fold), norm(ref, fold), norm(hyp, fold)
+    if not r:
+        return 0.0
+    # Ties go to the split that leaves more for the clip, so extra words count against it.
+    k = min(range(len(h) + 1), key=lambda k: (edits(p, h[:k]) + edits(r, h[k:]), k))
+    return edits(r, h[k:]) / len(r)
 
 
 def locate(ref, chars):
