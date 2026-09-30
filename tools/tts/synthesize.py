@@ -39,9 +39,9 @@ ENGINES = {
         "id": "kenpath-svara-tts-v1-t0.6",
         "model": "Svara TTS v1 (Kenpath)",
         "voices": {"male": "Gujarati (Male)", "female": "Gujarati (Female)"},
-        # Sampled, so it sometimes repeats itself or says its speaker label; keep drawing
-        # candidates until the recognizer hears the line cleanly.
-        "candidates": 5,
+        # Sampled, so it sometimes repeats itself or says its speaker label: draw takes three at a
+        # time (up to six) until the recognizer hears the line cleanly.
+        "candidates": 6,
     },
     "mms": {
         "id": "facebook-mms-tts-guj",
@@ -168,29 +168,40 @@ class Svara:
         self.sr = 24000
 
     def synth(self, text, voice, seed):
+        return self.synth_many(text, voice, seed, 1)[0]
+
+    def synth_many(self, text, voice, seed, n):
+        """n sampled takes of one line in a single batched generate call: on a CPU, three rows cost
+        little more than one."""
         import numpy as np
         torch = self.torch
         body = self.tok(f"{voice}: {text}", add_special_tokens=False).input_ids
-        ids = torch.tensor([[128000, 128259, 156939] + body + [128260, 128009, 128261, 128257]])
+        ids = torch.tensor([[128000, 128259, 156939] + body + [128260, 128009, 128261, 128257]]).repeat(n, 1)
         torch.manual_seed(seed)
         # About 82 audio tokens per second of speech: allow a slow reading of the line and no more,
-        # so a candidate that starts to ramble is cut short instead of costing minutes.
-        budget = int(82 * (1.2 + 0.2 * len(norm(text)))) + 60
+        # so a take that starts to ramble is cut short instead of costing minutes.
+        budget = int(82 * (1.0 + 0.17 * len(norm(text)))) + 50
         with torch.inference_mode():
-            out = self.model.generate(ids, attention_mask=torch.ones_like(ids), max_new_tokens=min(900, budget), do_sample=True,
-                                      temperature=0.6, top_p=0.9, top_k=40, repetition_penalty=1.1,
+            out = self.model.generate(ids, attention_mask=torch.ones_like(ids), max_new_tokens=min(900, budget),
+                                      do_sample=True, temperature=0.6, top_p=0.9, top_k=40, repetition_penalty=1.1,
                                       eos_token_id=[128258, 128262], pad_token_id=128263)
-        gen = out[0, ids.shape[1]:].tolist()
-        codes = [t - 128266 for t in gen if 128266 <= t < 128266 + 7 * 4096]
-        frames = len(codes) // 7
-        if frames == 0:
-            return np.zeros(1, dtype="float32")
-        c = torch.tensor([codes[i] - (i % 7) * 4096 for i in range(frames * 7)]).view(frames, 7)
-        layers = [c[:, 0].reshape(1, -1), c[:, [1, 4]].reshape(1, -1), c[:, [2, 3, 5, 6]].reshape(1, -1)]
-        if any(((x < 0) | (x > 4095)).any() for x in layers):
-            return np.zeros(1, dtype="float32")
-        with torch.inference_mode():
-            return self.snac.decode(layers).reshape(-1).numpy().astype("float32")
+        takes = []
+        for row in out[:, ids.shape[1]:].tolist():
+            if 128258 in row:
+                row = row[:row.index(128258)]
+            codes = [t - 128266 for t in row if 128266 <= t < 128266 + 7 * 4096]
+            frames = len(codes) // 7
+            if frames == 0:
+                takes.append(np.zeros(1, dtype="float32"))
+                continue
+            c = torch.tensor([codes[i] - (i % 7) * 4096 for i in range(frames * 7)]).view(frames, 7)
+            layers = [c[:, 0].reshape(1, -1), c[:, [1, 4]].reshape(1, -1), c[:, [2, 3, 5, 6]].reshape(1, -1)]
+            if any(((x < 0) | (x > 4095)).any() for x in layers):
+                takes.append(np.zeros(1, dtype="float32"))
+                continue
+            with torch.inference_mode():
+                takes.append(self.snac.decode(layers).reshape(-1).numpy().astype("float32"))
+        return takes
 
 
 class MMS:
@@ -260,30 +271,46 @@ def cmd_generate(args):
     asr = Recognizer() if candidates > 1 or args.score else None
     out_dir = os.path.join(WORK, "raw")
     os.makedirs(out_dir, exist_ok=True)
+    batch = 3 if hasattr(tts, "synth_many") and candidates > 1 else 1
+    deadline = t0 + args.budget_minutes * 60 if args.budget_minutes else None
     for n, item in enumerate(items):
+        # Stop starting new clips once the time budget is spent, so the job ends on its own and
+        # uploads what it has; the next run records only what is still missing.
+        if deadline and time.time() > deadline:
+            left = len(items) - n
+            print(f"::warning title=Audio shard {args.shard}::Time budget spent after {n} of {len(items)} clips; "
+                  f"{left} left for the next run.", flush=True)
+            break
         voice, text = item["voice"], item["text"]
-        best = None
-        for k in range(candidates):
-            seed = int(hashlib.sha1(f"{voice}|{text}|{k}".encode()).hexdigest()[:8], 16)
+        best, tried, done = None, 0, False
+        while tried < candidates and not done:
+            seed = int(hashlib.sha1(f"{voice}|{text}|{tried}".encode()).hexdigest()[:8], 16)
             t1 = time.time()
-            audio = tts.synth(text, engine["voices"][voice], seed)
+            if batch > 1:
+                takes = tts.synth_many(text, engine["voices"][voice], seed, min(batch, candidates - tried))
+            else:
+                takes = [tts.synth(text, engine["voices"][voice], seed)]
             took = time.time() - t1
-            score = {"cer": None, "asr": None}
-            if asr is not None and len(audio) > tts.sr * 0.1:
-                heard = asr.hear(audio, tts.sr)
-                score = {"cer": round(cer(text, heard), 3), "asr": heard}
-            dur = len(audio) / tts.sr
-            # Prefer the candidate the recognizer understands best; penalise implausible lengths.
-            plausible = 0.25 <= dur <= 1.2 + 0.18 * len(norm(text))
-            rank = (0 if plausible else 1, score["cer"] if score["cer"] is not None else 0.5)
-            print(f"[{n + 1}/{len(items)}] {voice} {text} cand {k}: {dur:.2f}s in {took:.1f}s cer={score['cer']} {score['asr']}", flush=True)
-            if best is None or rank < best[0]:
-                best = (rank, audio, score, k)
-            if plausible and score["cer"] is not None and score["cer"] <= 0.15:
-                break  # heard cleanly: good enough
+            for audio in takes:
+                k = tried
+                tried += 1
+                score = {"cer": None, "asr": None}
+                if asr is not None and len(audio) > tts.sr * 0.1:
+                    heard = asr.hear(audio, tts.sr)
+                    score = {"cer": round(cer(text, heard), 3), "asr": heard}
+                dur = len(audio) / tts.sr
+                # Prefer the take the recognizer understands best; penalise implausible lengths.
+                plausible = 0.25 <= dur <= 1.2 + 0.18 * len(norm(text))
+                rank = (0 if plausible else 1, score["cer"] if score["cer"] is not None else 0.5)
+                print(f"[{n + 1}/{len(items)}] {voice} {text} take {k}: {dur:.2f}s ({took:.0f}s for {len(takes)}) "
+                      f"cer={score['cer']} {score['asr']}", flush=True)
+                if best is None or rank < best[0]:
+                    best = (rank, audio, score, k)
+                if plausible and score["cer"] is not None and score["cer"] <= 0.15:
+                    done = True  # heard cleanly: good enough
         name = file_name(voice, text).replace(".m4a", "")
         sf.write(os.path.join(out_dir, f"{name}.wav"), best[1], tts.sr)
-        json.dump({"voice": voice, "text": text, "candidate": best[3], "candidates_tried": k + 1,
+        json.dump({"voice": voice, "text": text, "candidate": best[3], "candidates_tried": tried,
                    "plausible": best[0][0] == 0, **best[2]},
                   open(os.path.join(out_dir, f"{name}.json"), "w", encoding="utf-8"), ensure_ascii=False)
 
@@ -362,10 +389,14 @@ def cmd_finalize(args):
         else:
             problems.append(f"MISSING {k}")
             continue
+        bad = None
         if entry["duration"] < 0.25:
-            problems.append(f"TOO SHORT ({entry['duration']}s) {k}")
-        if entry.get("active_rms_db", 0) < -40 or entry.get("peak_db", 0) < -20:
-            problems.append(f"NEAR-SILENT (rms {entry.get('active_rms_db')} dB, peak {entry.get('peak_db')} dB) {k}")
+            bad = f"TOO SHORT ({entry['duration']}s) {k}"
+        elif entry.get("active_rms_db", 0) < -40 or entry.get("peak_db", 0) < -20:
+            bad = f"NEAR-SILENT (rms {entry.get('active_rms_db')} dB, peak {entry.get('peak_db')} dB) {k}"
+        if bad:
+            problems.append(bad)  # never ship it; the next run records it again
+            continue
         clips[k] = entry
         report.append((k, entry))
     # Remove clips nothing asks for any more.
@@ -394,11 +425,13 @@ def cmd_finalize(args):
             f.write(f"### Audio\n\n{summary}\n\n| clip | s | CER | heard |\n|---|---|---|---|\n")
             for k, e in report:
                 f.write(f"| {k} | {e['duration']} | {e.get('cer')} | {e.get('asr') or ''} |\n")
+    # Good clips are committed even when others are missing, so a re-run only has to record the rest.
+    # The workflow fails afterwards if problems.txt lists anything.
+    open(os.path.join(WORK, "problems.txt"), "w", encoding="utf-8").write("\n".join(problems))
     if problems:
-        for p in problems:
-            print(f"::error title=Audio::{p}")
-        sys.exit(1)
-    print(f"::notice title=Audio::{summary}")
+        print(f"::error title=Audio::{len(problems)} of {len(needed)} clips missing or unusable:%0A" + "%0A".join(problems[:40]))
+    else:
+        print(f"::notice title=Audio::{summary}")
     doubtful = [(k, e) for k, e in report if (e.get("cer") or 0) > 0.5]
     if doubtful:
         print("::warning title=Audio (recognizer could not confirm these clips)::" + "%0A".join(
@@ -419,6 +452,7 @@ def main():
     g.add_argument("--shard", type=int, required=True)
     g.add_argument("--candidates", type=int, default=0)
     g.add_argument("--score", action="store_true", help="score the chosen clip with the recognizer")
+    g.add_argument("--budget-minutes", type=float, default=0, help="stop starting new clips after this long")
     sub.add_parser("finalize")
     args = ap.parse_args()
     {"plan": cmd_plan, "generate": cmd_generate, "finalize": cmd_finalize}[args.cmd](args)
