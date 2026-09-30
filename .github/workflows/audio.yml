@@ -13,8 +13,8 @@ on:
       engine:
         description: TTS engine
         type: choice
-        options: [svara, indictts, mms]
-        default: svara
+        options: [indictts, svara, mms]
+        default: indictts
       force:
         description: Re-record every clip, not just missing or stale ones
         type: boolean
@@ -34,7 +34,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  ENGINE: ${{ inputs.engine || 'svara' }}
+  ENGINE: ${{ inputs.engine || 'indictts' }}
   HF_HUB_DISABLE_PROGRESS_BARS: "1"
   TOKENIZERS_PARALLELISM: "false"
 

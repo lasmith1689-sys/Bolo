@@ -77,10 +77,10 @@ lines.
 
 1. Works out every clip the app can ask for: each scene line in its speaker's voice (Luke male,
    Meera female), plus each phrase on its own. That is 95 clips.
-2. Synthesizes them with **[Svara TTS v1](https://huggingface.co/kenpath/svara-tts-v1)** (Apache
-   2.0), a speech model for Indian languages with male and female Gujarati voices. It samples its
-   output, so each line is drawn up to five times and the take that Meta's MMS speech recognizer
-   transcribes most accurately (at a plausible length) is kept.
+2. Synthesizes them with **[AI4Bharat Indic-TTS](https://github.com/AI4Bharat/Indic-TTS)** (MIT),
+   FastPitch + HiFi-GAN trained on Gujarati speech, with separate male and female voices. It is
+   deterministic and takes about two seconds a line on a CPU runner, and Meta's MMS speech
+   recognizer scores every clip (the report is in the workflow summary).
 3. Trims silence, normalises loudness, encodes mono AAC, and fails loudly if any clip is missing or
    near-silent.
 
@@ -94,8 +94,11 @@ The model was chosen by the TTS probe (the `TTS probe` workflow; WAVs and report
 | Meta MMS-TTS | one | CC BY-NC 4.0 | not measured | 0.21 | ~0.5 s |
 | AI4Bharat Indic Parler-TTS, IndicF5 | | | gated on Hugging Face (needs an account token) | | |
 
-UTMOS was trained on English speech, so treat it as a rough guide. Svara's stumbles are what the
-best-of-five selection removes. Nobody has listened to the clips yet: compare them with the iPhone
+UTMOS was trained on English speech, so treat it as a rough guide. Svara sounds the most natural,
+but in the probe about half its takes read out its own speaker label ("Gujarati ...") before the
+line or repeated words, and a full run on CPU runners (run 36684352102) produced no usable take in
+the shards checked: every take ran to the length cap. Indic-TTS is clearer and consistent, if a
+little flatter, so it is the default; Svara stays selectable in the Audio workflow for later. Nobody has listened to the clips yet: compare them with the iPhone
 voice in Settings. The earlier espeak and MBROLA voices are gone for good.
 
 ## Credits and licences

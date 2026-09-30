@@ -39,8 +39,9 @@ ENGINES = {
         "id": "kenpath-svara-tts-v1-t0.6",
         "model": "Svara TTS v1 (Kenpath)",
         "voices": {"male": "Gujarati (Male)", "female": "Gujarati (Female)"},
-        # Sampled, so it sometimes repeats itself or says its speaker label: draw takes three at a
-        # time (up to six) until the recognizer hears the line cleanly.
+        # Sampled, so it sometimes repeats itself or says its speaker label ("Gujarati ...") before
+        # the line: draw takes until the recognizer hears the line cleanly. Not the default: in the
+        # probe about half its takes did that, and on CPU runners it is slow.
         "candidates": 6,
     },
     "mms": {
@@ -50,7 +51,7 @@ ENGINES = {
         "candidates": 1,
     },
 }
-ENGINE = os.environ.get("ENGINE", "svara")
+ENGINE = os.environ.get("ENGINE", "indictts")
 
 PUNCT = "?!.,"
 
@@ -271,7 +272,8 @@ def cmd_generate(args):
     asr = Recognizer() if candidates > 1 or args.score else None
     out_dir = os.path.join(WORK, "raw")
     os.makedirs(out_dir, exist_ok=True)
-    batch = 3 if hasattr(tts, "synth_many") and candidates > 1 else 1
+    # One take per generate call: batched takes all ran to the token cap (run 36684352102).
+    batch = 1
     deadline = t0 + args.budget_minutes * 60 if args.budget_minutes else None
     for n, item in enumerate(items):
         # Stop starting new clips once the time budget is spent, so the job ends on its own and
