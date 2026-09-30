@@ -10,19 +10,14 @@ on:
         default: ""
       recs:
         description: Recognizers to run (comma separated)
-        default: mms,whisper,vakyansh,whisper-v3
-  push:
-    branches: [lab/work]
-    paths:
-      - tools/tts/**
-      - .github/workflows/audio-lab.yml
+        default: mms,whisper-ct2,vakyansh
 
 permissions:
   contents: write
   actions: read
 
 concurrency:
-  group: audio-lab
+  group: audio-lab-${{ github.run_id }}
   cancel-in-progress: true
 
 env:
@@ -112,14 +107,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - rec: mms
-            sets: ""
-          - rec: whisper
-            sets: ""
-          - rec: vakyansh
-            sets: ""
-          - rec: whisper-v3
-            sets: "indic-old,controls,humans-words"
+          - {rec: mms, shard: 0, shards: 4, sets: ""}
+          - {rec: mms, shard: 1, shards: 4, sets: ""}
+          - {rec: mms, shard: 2, shards: 4, sets: ""}
+          - {rec: mms, shard: 3, shards: 4, sets: ""}
+          - {rec: whisper-ct2, shard: 0, shards: 2, sets: ""}
+          - {rec: whisper-ct2, shard: 1, shards: 2, sets: ""}
+          - {rec: whisper, shard: 0, shards: 4, sets: ""}
+          - {rec: whisper, shard: 1, shards: 4, sets: ""}
+          - {rec: whisper, shard: 2, shards: 4, sets: ""}
+          - {rec: whisper, shard: 3, shards: 4, sets: ""}
+          - {rec: vakyansh, shard: 0, shards: 1, sets: ""}
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -133,18 +131,19 @@ jobs:
           run-id: ${{ inputs.reuse_run || github.run_id }}
           github-token: ${{ github.token }}
       - name: Install
-        if: contains(format(',{0},', inputs.recs || 'mms,whisper,vakyansh,whisper-v3'), format(',{0},', matrix.rec))
+        if: contains(format(',{0},', inputs.recs || 'mms,whisper-ct2,vakyansh'), format(',{0},', matrix.rec))
         run: |
           sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 >/dev/null
           pip install -q $PIP_TORCH
           pip install -q "transformers==4.46.2" soundfile librosa
+          if [ "${{ matrix.rec }}" = whisper-ct2 ]; then pip install -q faster-whisper "ctranslate2>=4.4"; fi
       - name: Score
-        if: contains(format(',{0},', inputs.recs || 'mms,whisper,vakyansh,whisper-v3'), format(',{0},', matrix.rec))
-        run: python tools/tts/lab.py score --rec ${{ matrix.rec }} --sets "${{ matrix.sets }}"
+        if: contains(format(',{0},', inputs.recs || 'mms,whisper-ct2,vakyansh'), format(',{0},', matrix.rec))
+        run: python tools/tts/lab.py score --rec ${{ matrix.rec }} --sets "${{ matrix.sets }}" --shard ${{ matrix.shard }} --shards ${{ matrix.shards }}
       - uses: actions/upload-artifact@v4
-        if: contains(format(',{0},', inputs.recs || 'mms,whisper,vakyansh,whisper-v3'), format(',{0},', matrix.rec))
+        if: contains(format(',{0},', inputs.recs || 'mms,whisper-ct2,vakyansh'), format(',{0},', matrix.rec))
         with:
-          name: score-${{ matrix.rec }}
+          name: score-${{ matrix.rec }}-${{ matrix.shard }}
           path: lab-out/scores
 
   collect:

@@ -84,9 +84,32 @@ class Whisper:
         return self.hear_many([y])[0]
 
 
+class FastWhisper:
+    """The same Gujarati Whisper converted to CTranslate2 int8 (faster-whisper): several times faster
+    on a CPU, greedy decoding, no timestamps, no conditioning on earlier text."""
+
+    def __init__(self, repo, out="/tmp/ct2-whisper-gu"):
+        import os
+        import subprocess
+        if not os.path.exists(os.path.join(out, "model.bin")):
+            subprocess.run(["ct2-transformers-converter", "--model", repo, "--output_dir", out,
+                            "--quantization", "int8", "--force"], check=True)
+        from faster_whisper import WhisperModel
+        self.model = WhisperModel(out, device="cpu", compute_type="int8", cpu_threads=os.cpu_count() or 4)
+
+    def hear(self, y):
+        segs, _ = self.model.transcribe(y, language="gu", task="transcribe", beam_size=1, best_of=1, temperature=0.0,
+                                        condition_on_previous_text=False, without_timestamps=True, vad_filter=False)
+        return " ".join(s.text.strip() for s in segs).strip()
+
+    def hear_many(self, ys):
+        return [self.hear(y) for y in ys]
+
+
 RECOGNIZERS = {
     "mms": lambda: CTC("facebook/mms-1b-all", target_lang="guj"),
     "whisper": lambda: Whisper("vasista22/whisper-gujarati-medium", base="openai/whisper-medium"),
+    "whisper-ct2": lambda: FastWhisper("vasista22/whisper-gujarati-medium"),
     "vakyansh": lambda: CTC("Harveenchadha/vakyansh-wav2vec2-gujarati-gnm-100"),
     "whisper-v3": lambda: Whisper("openai/whisper-large-v3", batch=4),
 }

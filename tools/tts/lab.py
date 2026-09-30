@@ -518,6 +518,7 @@ def cmd_score(args):
             p = os.path.join(OUT, name, it["id"] + ".wav")
             if os.path.exists(p):
                 clips.append((f"{name}/{it['id']}", p))
+    clips = clips[args.shard::args.shards]
     t0 = time.time()
     rec = asr.load(args.rec)
     load_s = time.time() - t0
@@ -532,7 +533,8 @@ def cmd_score(args):
         print(f"{args.rec}: {min(i + step, len(clips))}/{len(clips)} in {time.time() - t0:.0f}s", flush=True)
     os.makedirs(os.path.join(OUT, "scores"), exist_ok=True)
     json.dump({"rec": args.rec, "load_s": round(load_s), "score_s": round(time.time() - t0), "heard": heard},
-              open(os.path.join(OUT, "scores", f"{args.rec}.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=0)
+              open(os.path.join(OUT, "scores", f"{args.rec}-{args.shard}.json"), "w", encoding="utf-8"),
+              ensure_ascii=False, indent=0)
     gh_note(f"Scored with {args.rec}", [f"{len(clips)} clips in {time.time() - t0:.0f}s (model load {load_s:.0f}s)"])
 
 
@@ -540,7 +542,7 @@ def cmd_collect(args):
     scores = {}
     for f in glob.glob(os.path.join(OUT, "scores", "*.json")):
         d = json.load(open(f, encoding="utf-8"))
-        scores[d["rec"]] = d["heard"]
+        scores.setdefault(d["rec"], {}).update(d["heard"])
     recs = sorted(scores)
     rows = []
     pub = os.path.join(ROOT, "lab-pub")
@@ -598,6 +600,8 @@ def main():
     s = sub.add_parser("score")
     s.add_argument("--rec", required=True)
     s.add_argument("--sets", default="")
+    s.add_argument("--shard", type=int, default=0)
+    s.add_argument("--shards", type=int, default=1)
     sub.add_parser("collect")
     args = ap.parse_args()
     try:
