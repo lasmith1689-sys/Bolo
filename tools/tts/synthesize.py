@@ -251,12 +251,7 @@ class Recognizer:
 
     def hear(self, audio, sr):
         import librosa
-        import numpy as np
         y = librosa.resample(audio, orig_sr=sr, target_sr=16000) if sr != 16000 else audio
-        # The recognizer needs some context: a word under a second long often decodes to nothing.
-        # Half a second of silence either side tells a recognizer miss from a bad clip.
-        pad = np.zeros(8000, dtype="float32")
-        y = np.concatenate([pad, np.asarray(y, dtype="float32"), pad])
         with self.torch.inference_mode():
             ids = self.model(**self.proc(y, sampling_rate=16000, return_tensors="pt")).logits.argmax(-1)[0]
         return self.proc.decode(ids)
@@ -449,6 +444,45 @@ def cmd_finalize(args):
             f"{e['cer']:.2f} {e['file']} heard {e.get('asr') or '(nothing)'}" for e in worst))
 
 
+def cmd_verify(args):
+    """Second opinion for clips the recognizer could not confirm on their own. A CTC recognizer often
+    decodes nothing from a single word under a second long, so each doubtful clip is heard again
+    inside a run of three clips of the same voice (0.35 s apart). If the run is transcribed well,
+    the clips are fine and the solo score was the recognizer's limit; if not, the clips are suspect."""
+    import numpy as np
+    manifest = load_manifest()
+    clips = manifest.get("clips", {})
+
+    def load(entry):
+        raw = subprocess.run(["ffmpeg", "-loglevel", "error", "-i", os.path.join(AUDIO_DIR, entry["file"]),
+                              "-f", "f32le", "-ac", "1", "-ar", "16000", "-"], capture_output=True, check=True).stdout
+        return np.frombuffer(raw, dtype="float32")
+
+    asr = Recognizer()
+    doubtful = {v: [(k, e) for k, e in clips.items() if k.startswith(v + "|") and (e.get("cer") or 0) > 0.3]
+                for v in ("male", "female")}
+    gap = np.zeros(int(16000 * 0.35), dtype="float32")
+    rows, suspect = [], []
+    for voice, items in doubtful.items():
+        for i in range(0, len(items), 3):
+            group = items[i:i + 3]
+            texts = [k.split("|", 1)[1] for k, _ in group]
+            audio = np.concatenate([np.concatenate([load(e), gap]) for _, e in group])
+            heard = asr.hear(audio, 16000)
+            score = cer(" ".join(texts), heard)
+            rows.append((voice, texts, heard, round(score, 3)))
+            if score > 0.35:
+                suspect.extend(k for k, _ in group)
+            print(f"{voice}: {' / '.join(texts)} => {heard} (CER {score:.2f})", flush=True)
+    ok = sum(1 for r in rows if r[3] <= 0.35)
+    msg = (f"{sum(len(v) for v in doubtful.values())} clips the recognizer could not confirm alone, heard in "
+           f"{len(rows)} runs of three: {ok} runs transcribed well (CER <= 0.35).")
+    print(f"::notice title=Audio in context::{msg}%0A" + "%0A".join(
+        f"{r[3]:.2f} {r[0]}: {' / '.join(r[1])} => {r[2] or '(nothing)'}" for r in rows[:40]))
+    if suspect:
+        print("::warning title=Audio (still doubtful in context)::" + "%0A".join(suspect[:40]))
+
+
 def main():
     ap = argparse.ArgumentParser()
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -461,8 +495,9 @@ def main():
     g.add_argument("--score", action="store_true", help="score the chosen clip with the recognizer")
     g.add_argument("--budget-minutes", type=float, default=0, help="stop starting new clips after this long")
     sub.add_parser("finalize")
+    sub.add_parser("verify")
     args = ap.parse_args()
-    {"plan": cmd_plan, "generate": cmd_generate, "finalize": cmd_finalize}[args.cmd](args)
+    {"plan": cmd_plan, "generate": cmd_generate, "finalize": cmd_finalize, "verify": cmd_verify}[args.cmd](args)
 
 
 if __name__ == "__main__":

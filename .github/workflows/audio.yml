@@ -146,3 +146,24 @@ jobs:
             echo "::error title=Audio::$(grep -c . tts-work/problems.txt) clips are missing or unusable; run the Audio workflow again to record just those."
             exit 1
           fi
+
+  verify:
+    # A second opinion on clips the recognizer could not confirm alone (see cmd_verify). Informational.
+    needs: finalize
+    if: always() && needs.finalize.result == 'success'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+      - name: Install
+        run: |
+          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg >/dev/null
+          python -m pip install -q --upgrade pip
+          pip install -q torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -q "transformers==4.46.2" soundfile librosa
+      - name: Hear doubtful clips in context
+        run: python tools/tts/synthesize.py verify
