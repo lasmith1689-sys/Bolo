@@ -600,6 +600,16 @@ def main():
     s.add_argument("--sets", default="")
     sub.add_parser("collect")
     args = ap.parse_args()
+    try:
+        run(args)
+    except BaseException as e:  # noqa: BLE001
+        import traceback
+        tb = traceback.format_exc().strip().splitlines()
+        gh_note(f"lab.py {args.cmd} failed: {type(e).__name__}", tb[-14:], "error")
+        raise
+
+
+def run(args):
     {"refs": cmd_refs, "gen-indic": cmd_gen_indic, "gen-svara": cmd_gen_svara, "score": cmd_score,
      "collect": cmd_collect}[args.cmd](args)
 

@@ -55,28 +55,28 @@ class CTC:
 
 
 class Whisper:
-    def __init__(self, repo, language="gu", batch=8):
+    def __init__(self, repo, language="gu", batch=8, base=None):
         import torch
         from transformers import WhisperForConditionalGeneration, WhisperProcessor
         self.torch = torch
+        from transformers import GenerationConfig
         self.proc = WhisperProcessor.from_pretrained(repo)
         self.model = WhisperForConditionalGeneration.from_pretrained(repo).eval()
+        if not hasattr(self.model.generation_config, "lang_to_id"):
+            # Fine-tuned checkpoints saved before the language argument existed: borrow the base
+            # model's generation config (same tokenizer), as transformers issue 25084 advises.
+            self.model.generation_config = GenerationConfig.from_pretrained(base or "openai/whisper-medium")
+        self.model.generation_config.forced_decoder_ids = None
+        self.model.config.forced_decoder_ids = None
         self.language = language
         self.batch = batch
-        self.forced = None
 
     def hear_many(self, ys):
         out, batch = [], self.batch
         for i in range(0, len(ys), batch):
             feats = self.proc([y for y in ys[i:i + batch]], sampling_rate=SR, return_tensors="pt").input_features
             with self.torch.inference_mode():
-                if self.forced is None:
-                    try:
-                        ids = self.model.generate(feats, language=self.language, task="transcribe", max_new_tokens=60)
-                    except Exception:  # noqa: BLE001  older fine-tuned configs lack lang_to_id
-                        self.forced = self.proc.get_decoder_prompt_ids(language=self.language, task="transcribe")
-                if self.forced is not None:
-                    ids = self.model.generate(feats, forced_decoder_ids=self.forced, max_new_tokens=60)
+                ids = self.model.generate(feats, language=self.language, task="transcribe", max_new_tokens=60)
             out += [t.strip() for t in self.proc.batch_decode(ids, skip_special_tokens=True)]
         return out
 
@@ -86,7 +86,7 @@ class Whisper:
 
 RECOGNIZERS = {
     "mms": lambda: CTC("facebook/mms-1b-all", target_lang="guj"),
-    "whisper": lambda: Whisper("vasista22/whisper-gujarati-medium"),
+    "whisper": lambda: Whisper("vasista22/whisper-gujarati-medium", base="openai/whisper-medium"),
     "vakyansh": lambda: CTC("Harveenchadha/vakyansh-wav2vec2-gujarati-gnm-100"),
     "whisper-v3": lambda: Whisper("openai/whisper-large-v3", batch=4),
 }
