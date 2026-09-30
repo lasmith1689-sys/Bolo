@@ -9,7 +9,7 @@
    "cer": 0.125,
    "asr": "આ ભાકરી છે",
    "tries": 1,
-   "active_rms_db": -20.1,
+   "active_rms_db": -20.0,
    "peak_db": -5.8
   },
   "female|આ મારી બહેન છે.": {
@@ -29,8 +29,8 @@
    "cer": 1.0,
    "asr": "",
    "tries": 1,
-   "active_rms_db": -20.1,
-   "peak_db": -3.4
+   "active_rms_db": -20.2,
+   "peak_db": -3.5
   },
   "female|આભાર.": {
    "file": "female-5c33bef8e0.m4a",
@@ -50,17 +50,17 @@
    "asr": "",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -3.4
+   "peak_db": -3.5
   },
   "female|એક દીકરી.": {
    "file": "female-6d3e9878f0.m4a",
    "duration": 1.497,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 1.0,
-   "asr": "હૈઘને કઈ",
+   "asr": "હેઘ ને કઈએ",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -6.9
+   "peak_db": -7.1
   },
   "female|કાલે.": {
    "file": "female-c82fbfedad.m4a",
@@ -70,7 +70,7 @@
    "asr": "લે",
    "tries": 1,
    "active_rms_db": -20.2,
-   "peak_db": -7.8
+   "peak_db": -7.7
   },
   "female|ખબર નથી.": {
    "file": "female-014b1b4b84.m4a",
@@ -86,8 +86,8 @@
    "file": "female-7df48ca237.m4a",
    "duration": 0.958,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.429,
-   "asr": "થાવાદુ",
+   "cer": 0.571,
+   "asr": "થવાુ",
    "tries": 1,
    "active_rms_db": -20.2,
    "peak_db": -6.1
@@ -99,8 +99,8 @@
    "cer": 0.0,
    "asr": "ખાવાનું તૈયાર છે",
    "tries": 1,
-   "active_rms_db": -19.7,
-   "peak_db": -4.5
+   "active_rms_db": -20.1,
+   "peak_db": -5.9
   },
   "female|ચા": {
    "file": "female-ce2c3fb767.m4a",
@@ -116,21 +116,21 @@
    "file": "female-1c657d8cee.m4a",
    "duration": 0.888,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.5,
-   "asr": "યાપ",
+   "cer": 1.0,
+   "asr": "જpા",
    "tries": 1,
    "active_rms_db": -20.2,
-   "peak_db": -7.3
+   "peak_db": -7.2
   },
   "female|ચાર.": {
    "file": "female-e5ac218e0b.m4a",
    "duration": 1.128,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 1.0,
-   "asr": "ફ",
+   "asr": "",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -6.9
+   "peak_db": -7.0
   },
   "female|છ.": {
    "file": "female-b39635c299.m4a",
@@ -146,11 +146,11 @@
    "file": "female-13050deb36.m4a",
    "duration": 1.038,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.0,
-   "asr": "તમે'",
+   "cer": 0.667,
+   "asr": "ે",
    "tries": 1,
-   "active_rms_db": -20.1,
-   "peak_db": -4.8
+   "active_rms_db": -19.9,
+   "peak_db": -4.6
   },
   "female|ત્રણ": {
    "file": "female-37dc9298b2.m4a",
@@ -170,7 +170,7 @@
    "asr": "ના પાજ",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -4.6
+   "peak_db": -4.5
   },
   "female|દસ": {
    "file": "female-73f17962f2.m4a",
@@ -186,8 +186,8 @@
    "file": "female-5fbe6ddaf0.m4a",
    "duration": 1.337,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 1.0,
-   "asr": "",
+   "cer": 0.375,
+   "asr": "સરૂપા",
    "tries": 1,
    "active_rms_db": -20.2,
    "peak_db": -8.4
@@ -196,8 +196,8 @@
    "file": "female-1b23d6624b.m4a",
    "duration": 1.207,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.5,
-   "asr": "ધેરનએ બોલો '",
+   "cer": 0.25,
+   "asr": "ધીનય બોલો",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -10.2
@@ -210,7 +210,7 @@
    "asr": "",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -7.3
+   "peak_db": -7.2
   },
   "female|ના.": {
    "file": "female-29ed56a0e2.m4a",
@@ -220,7 +220,7 @@
    "asr": "",
    "tries": 1,
    "active_rms_db": -20.2,
-   "peak_db": -7.8
+   "peak_db": -7.6
   },
   "female|પાંચ": {
    "file": "female-84a5ee4b4f.m4a",
@@ -229,18 +229,18 @@
    "cer": 1.0,
    "asr": "",
    "tries": 1,
-   "active_rms_db": -20.4,
-   "peak_db": -5.5
+   "active_rms_db": -20.2,
+   "peak_db": -5.6
   },
   "female|બસ, થયું": {
    "file": "female-3a77fbfe5b.m4a",
    "duration": 1.397,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.5,
-   "asr": "થયુ",
+   "asr": "s થયુ",
    "tries": 1,
-   "active_rms_db": -20.2,
-   "peak_db": -6.8
+   "active_rms_db": -20.0,
+   "peak_db": -6.2
   },
   "female|બસ, થયું. આભાર.": {
    "file": "female-15d94d1cc7.m4a",
@@ -259,18 +259,18 @@
    "cer": 1.0,
    "asr": "",
    "tries": 1,
-   "active_rms_db": -20.2,
-   "peak_db": -5.8
+   "active_rms_db": -20.1,
+   "peak_db": -5.7
   },
   "female|બે.": {
    "file": "female-18d889c601.m4a",
    "duration": 1.018,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 1.0,
-   "asr": "",
+   "asr": "b",
    "tries": 1,
-   "active_rms_db": -20.5,
-   "peak_db": -7.5
+   "active_rms_db": -20.3,
+   "peak_db": -7.6
   },
   "female|ભાઈ": {
    "file": "female-2542427839.m4a",
@@ -280,17 +280,17 @@
    "asr": "",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -8.6
+   "peak_db": -8.7
   },
   "female|મજામાં": {
    "file": "female-9770bafccc.m4a",
    "duration": 1.437,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.333,
-   "asr": "મામા",
+   "cer": 0.667,
+   "asr": "ાા",
    "tries": 1,
-   "active_rms_db": -20.0,
-   "peak_db": -6.7
+   "active_rms_db": -20.1,
+   "peak_db": -6.9
   },
   "female|મજામાં, આભાર. તમે?": {
    "file": "female-058730e4cd.m4a",
@@ -310,7 +310,7 @@
    "asr": "મને ગુજરાતી થોડું આવળે છે",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -6.7
+   "peak_db": -7.0
   },
   "female|મળીને આનંદ થયો.": {
    "file": "female-feef90aae2.m4a",
@@ -320,27 +320,27 @@
    "asr": "ઘળીને આનંદ થયો",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -7.3
+   "peak_db": -7.2
   },
   "female|મારું નામ મીરા છે": {
    "file": "female-a0ae54701f.m4a",
    "duration": 1.836,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.071,
-   "asr": "મારું નામ મીરા છેલ",
+   "cer": 0.143,
+   "asr": "મારું નામ મીરા છેલે",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -6.6
+   "peak_db": -6.7
   },
   "female|મારું નામ મીરા છે. તમે?": {
    "file": "female-10b579aecd.m4a",
    "duration": 3.522,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.118,
-   "asr": "મારું નામ મીરા છે અમેન",
+   "asr": "મારું નામ મીરા છે મેન",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -6.1
+   "peak_db": -6.2
   },
   "female|મારો ભાઈ.": {
    "file": "female-e1c4641195.m4a",
@@ -359,8 +359,8 @@
    "cer": 0.222,
    "asr": "વાંધો નહિ",
    "tries": 1,
-   "active_rms_db": -20.0,
-   "peak_db": -5.0
+   "active_rms_db": -20.1,
+   "peak_db": -5.2
   },
   "female|સાત.": {
    "file": "female-88df9d807d.m4a",
@@ -370,14 +370,14 @@
    "asr": "",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -6.7
+   "peak_db": -6.5
   },
   "female|સો રૂપિયા.": {
    "file": "female-780addda27.m4a",
    "duration": 1.217,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.125,
-   "asr": "સોરુપિયા",
+   "cer": 0.0,
+   "asr": "સો રૂપિયા",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -7.5
@@ -389,45 +389,45 @@
    "cer": 1.0,
    "asr": "",
    "tries": 1,
-   "active_rms_db": -20.0,
-   "peak_db": -7.5
+   "active_rms_db": -20.1,
+   "peak_db": -7.4
   },
   "female|હા, આભાર.": {
    "file": "female-d1660c6b89.m4a",
    "duration": 1.347,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "હા આભાર",
+   "asr": "હા! આભાર",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -8.8
+   "peak_db": -8.9
   },
   "female|હા, ઘરે છે.": {
    "file": "female-7a2e9b369a.m4a",
    "duration": 1.557,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "હા ઘરે છે '",
+   "asr": "હા ઘરે છે",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -8.2
+   "peak_db": -8.0
   },
   "female|હું અમેરિકાથી છું.": {
    "file": "female-2a35415daf.m4a",
    "duration": 1.946,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "હું અમેરિકાથી છું '",
+   "asr": "હું અમેરિકાથી છું",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -8.5
+   "peak_db": -8.4
   },
   "male|અને આ?": {
    "file": "male-cb8a4bbf10.m4a",
    "duration": 1.128,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.25,
-   "asr": "અને ફ",
+   "cer": 0.5,
+   "asr": "ને ફ",
    "tries": 1,
    "active_rms_db": -20.2,
    "peak_db": -4.9
@@ -437,7 +437,7 @@
    "duration": 1.736,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.1,
-   "asr": "આ કેટલા પિસા'",
+   "asr": "આ કેટલા પહૈસા",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -5.9
@@ -447,10 +447,10 @@
    "duration": 1.048,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "આ કોણ છે '",
+   "asr": "આ કોણ છે",
    "tries": 1,
-   "active_rms_db": -20.1,
-   "peak_db": -4.8
+   "active_rms_db": -20.0,
+   "peak_db": -5.3
   },
   "male|આ મારો મિત્ર છે.": {
    "file": "male-8bdb4b7e4d.m4a",
@@ -460,14 +460,14 @@
    "asr": "આ મારો મિત્ર છે",
    "tries": 1,
    "active_rms_db": -20.2,
-   "peak_db": -6.6
+   "peak_db": -6.5
   },
   "male|આ શું છે?": {
    "file": "male-34f49939c3.m4a",
    "duration": 1.128,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.333,
-   "asr": "આજ શુ છે",
+   "cer": 1.0,
+   "asr": "aૂ",
    "tries": 1,
    "active_rms_db": -20.2,
    "peak_db": -3.4
@@ -477,27 +477,27 @@
    "duration": 0.948,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 1.0,
-   "asr": "ર",
+   "asr": "",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -6.6
+   "peak_db": -6.7
   },
   "male|આજે કે કાલે?": {
    "file": "male-66cfa80c75.m4a",
    "duration": 1.746,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "આજે કે કાલે '",
+   "asr": "આજે કે કાલે",
    "tries": 1,
-   "active_rms_db": -20.1,
-   "peak_db": -6.7
+   "active_rms_db": -20.2,
+   "peak_db": -6.6
   },
   "male|આવજો.": {
    "file": "male-dccee99397.m4a",
    "duration": 1.117,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.25,
-   "asr": "આરજો'",
+   "asr": "આરજો",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -7.7
@@ -507,7 +507,7 @@
    "duration": 0.838,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 1.0,
-   "asr": "ુ",
+   "asr": "",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -5.1
@@ -516,28 +516,28 @@
    "file": "male-55b95d9509.m4a",
    "duration": 1.217,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.167,
-   "asr": "આવો આો",
+   "cer": 1.0,
+   "asr": "",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -4.7
+   "peak_db": -5.2
   },
   "male|કેટલા જોઈએ?": {
    "file": "male-620d787a1d.m4a",
    "duration": 1.267,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.444,
-   "asr": "કેપલા ોરીએ",
+   "cer": 0.333,
+   "asr": "કેટટલા જોરીએ",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -5.6
+   "peak_db": -5.7
   },
   "male|કેટલા પૈસા?": {
    "file": "male-b5deb7db52.m4a",
    "duration": 1.367,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "કેટલા પૈસા '",
+   "asr": "કેટલા પૈસા",
    "tries": 1,
    "active_rms_db": -20.2,
    "peak_db": -7.0
@@ -547,7 +547,7 @@
    "duration": 1.347,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "કેટલા વાગ્યા'",
+   "asr": "કેટલા વાગ્યા",
    "tries": 1,
    "active_rms_db": -20.1,
    "peak_db": -6.0
@@ -556,8 +556,8 @@
    "file": "male-0d1a339a23.m4a",
    "duration": 1.118,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.2,
-   "asr": "કે છો",
+   "cer": 1.0,
+   "asr": "",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -5.7
@@ -566,8 +566,8 @@
    "file": "male-c2611bf022.m4a",
    "duration": 0.868,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.143,
-   "asr": "ક્ાં છે '",
+   "cer": 0.286,
+   "asr": "કયા છે",
    "tries": 1,
    "active_rms_db": -19.7,
    "peak_db": -5.8
@@ -577,10 +577,10 @@
    "duration": 0.948,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 1.0,
-   "asr": "ફ",
+   "asr": "ફm",
    "tries": 1,
-   "active_rms_db": -20.2,
-   "peak_db": -6.9
+   "active_rms_db": -20.1,
+   "peak_db": -6.8
   },
   "male|ઘર": {
    "file": "male-9c3d239ce9.m4a",
@@ -599,15 +599,15 @@
    "cer": 1.0,
    "asr": "",
    "tries": 1,
-   "active_rms_db": -20.0,
-   "peak_db": -6.8
+   "active_rms_db": -20.1,
+   "peak_db": -6.7
   },
   "male|ચાલો!": {
    "file": "male-841cd6f07a.m4a",
    "duration": 1.048,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.5,
-   "asr": "ાલુ",
+   "cer": 0.75,
+   "asr": "લુ",
    "tries": 1,
    "active_rms_db": -20.2,
    "peak_db": -6.7
@@ -616,10 +616,10 @@
    "file": "male-8a565e5441.m4a",
    "duration": 2.385,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.833,
-   "asr": "રહ",
+   "cer": 0.667,
+   "asr": "ર ર",
    "tries": 1,
-   "active_rms_db": -20.3,
+   "active_rms_db": -20.4,
    "peak_db": -2.5
   },
   "male|તમારું નામ શું છે?": {
@@ -629,7 +629,7 @@
    "cer": 0.0,
    "asr": "તમારું નામ શું છે",
    "tries": 1,
-   "active_rms_db": -20.0,
+   "active_rms_db": -20.1,
    "peak_db": -7.1
   },
   "male|તમે ક્યાંથી છો?": {
@@ -650,14 +650,14 @@
    "asr": "તમે ગુજરાતી બોલો છો",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -6.8
+   "peak_db": -6.9
   },
   "male|દીકરી": {
    "file": "male-b54b956a49.m4a",
    "duration": 0.738,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.6,
-   "asr": "ધીઠદી",
+   "cer": 1.0,
+   "asr": "ધ",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -3.2
@@ -676,8 +676,8 @@
    "file": "male-4967b5fc9b.m4a",
    "duration": 1.726,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.25,
-   "asr": "ધીકરો કે ધીકી'",
+   "cer": 0.167,
+   "asr": "ધીકરો કે દીકર",
    "tries": 1,
    "active_rms_db": -20.1,
    "peak_db": -6.0
@@ -686,8 +686,8 @@
    "file": "male-01c8a24512.m4a",
    "duration": 1.277,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.0,
-   "asr": "દૂધ ક્યાં છે",
+   "cer": 0.2,
+   "asr": "દુધ કયાં છે",
    "tries": 1,
    "active_rms_db": -19.9,
    "peak_db": -6.8
@@ -697,7 +697,7 @@
    "duration": 2.664,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.714,
-   "asr": "રહર",
+   "asr": "ર ર",
    "tries": 1,
    "active_rms_db": -20.1,
    "peak_db": -2.4
@@ -710,14 +710,14 @@
    "asr": "",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -2.0
+   "peak_db": -2.1
   },
   "male|પાંચ. બરાબર.": {
    "file": "male-86dfde3581.m4a",
    "duration": 2.255,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.556,
-   "asr": "રાબર",
+   "cer": 0.222,
+   "asr": "પાચ રાબર",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -3.0
@@ -726,11 +726,11 @@
    "file": "male-42929bc6cc.m4a",
    "duration": 0.659,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.0,
-   "asr": "પાણી",
+   "cer": 0.5,
+   "asr": "ાી",
    "tries": 1,
    "active_rms_db": -20.2,
-   "peak_db": -8.4
+   "peak_db": -8.3
   },
   "male|ફરીથી કહો": {
    "file": "male-bc753136bc.m4a",
@@ -746,8 +746,8 @@
    "file": "male-842126aaad.m4a",
    "duration": 1.058,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.6,
-   "asr": "રમર",
+   "cer": 0.4,
+   "asr": "mરાmર",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -2.3
@@ -756,20 +756,20 @@
    "file": "male-ae0b8e184f.m4a",
    "duration": 1.038,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.667,
-   "asr": "બરૂ",
+   "cer": 1.0,
+   "asr": "",
    "tries": 1,
-   "active_rms_db": -20.1,
+   "active_rms_db": -19.8,
    "peak_db": -5.6
   },
   "male|બે. બરાબર.": {
    "file": "male-e05e6c9106.m4a",
    "duration": 2.534,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.714,
-   "asr": "ર ર",
+   "cer": 0.857,
+   "asr": "ર",
    "tries": 1,
-   "active_rms_db": -19.8,
+   "active_rms_db": -19.9,
    "peak_db": -2.8
   },
   "male|બેસો.": {
@@ -779,7 +779,7 @@
    "cer": 0.25,
    "asr": "વેસો",
    "tries": 1,
-   "active_rms_db": -20.0,
+   "active_rms_db": -20.1,
    "peak_db": -6.6
   },
   "male|મને ગમે છે.": {
@@ -789,7 +789,7 @@
    "cer": 0.0,
    "asr": "મને ગમે છે",
    "tries": 1,
-   "active_rms_db": -20.1,
+   "active_rms_db": -20.0,
    "peak_db": -4.8
   },
   "male|મને તરસ લાગી છે": {
@@ -800,7 +800,7 @@
    "asr": "મને તરસ લાગી છે",
    "tries": 1,
    "active_rms_db": -20.1,
-   "peak_db": -5.8
+   "peak_db": -5.5
   },
   "male|મને પાણી જોઈએ છે.": {
    "file": "male-4fb5dcf656.m4a",
@@ -820,7 +820,7 @@
    "asr": "મને ભૂખ લાગી છે",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -5.2
+   "peak_db": -5.5
   },
   "male|મને સમજાયું નહીં.": {
    "file": "male-fd160c4959.m4a",
@@ -837,17 +837,17 @@
    "duration": 0.858,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 1.0,
-   "asr": "mુ",
+   "asr": "m c",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -5.7
+   "peak_db": -5.6
   },
   "male|મમ્મી પપ્પા ઘરે છે?": {
    "file": "male-e407ed2bb8.m4a",
    "duration": 2.804,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.267,
-   "asr": "મંમી પપા ઘરે છે",
+   "cer": 0.2,
+   "asr": "મં્મી પપા ઘરે છે",
    "tries": 1,
    "active_rms_db": -20.1,
    "peak_db": -7.0
@@ -857,7 +857,7 @@
    "duration": 1.277,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.143,
-   "asr": "માફ કરજોર'",
+   "asr": "માફ કરજર",
    "tries": 1,
    "active_rms_db": -19.9,
    "peak_db": -5.7
@@ -866,11 +866,11 @@
    "file": "male-838c10beb8.m4a",
    "duration": 0.579,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.6,
-   "asr": "િર",
+   "cer": 1.0,
+   "asr": "",
    "tries": 1,
-   "active_rms_db": -20.0,
-   "peak_db": -4.9
+   "active_rms_db": -19.8,
+   "peak_db": -4.8
   },
   "male|સરસ!": {
    "file": "male-8536c919da.m4a",
@@ -879,15 +879,15 @@
    "cer": 1.0,
    "asr": "",
    "tries": 1,
-   "active_rms_db": -20.3,
+   "active_rms_db": -20.4,
    "peak_db": -1.6
   },
   "male|સારું": {
    "file": "male-85e1d263b2.m4a",
    "duration": 1.467,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.6,
-   "asr": "રુ",
+   "cer": 0.8,
+   "asr": "ર",
    "tries": 1,
    "active_rms_db": -20.2,
    "peak_db": -6.1
@@ -907,7 +907,7 @@
    "duration": 1.177,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.857,
-   "asr": "હ",
+   "asr": "હg",
    "tries": 1,
    "active_rms_db": -20.1,
    "peak_db": -6.1
@@ -917,7 +917,7 @@
    "duration": 1.936,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
    "cer": 0.0,
-   "asr": "હા ફરીથી કહો '",
+   "asr": "હા ફરીથી કહો",
    "tries": 1,
    "active_rms_db": -20.0,
    "peak_db": -6.3
@@ -930,14 +930,14 @@
    "asr": "મને તરસ લાગી છે",
    "tries": 1,
    "active_rms_db": -20.0,
-   "peak_db": -5.3
+   "peak_db": -5.1
   },
   "male|હું": {
    "file": "male-82762be5f6.m4a",
    "duration": 0.469,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.667,
-   "asr": "હ",
+   "cer": 1.0,
+   "asr": "",
    "tries": 1,
    "active_rms_db": -20.1,
    "peak_db": -10.2
@@ -946,10 +946,10 @@
    "file": "male-210df45ddc.m4a",
    "duration": 0.898,
    "engine": "ai4bharat-indictts-gu-fastpitch-hifigan-v1",
-   "cer": 0.625,
-   "asr": "હુ લૂ'",
+   "cer": 0.75,
+   "asr": "ુલૂp",
    "tries": 1,
-   "active_rms_db": -20.0,
+   "active_rms_db": -19.9,
    "peak_db": -9.3
   }
  }
