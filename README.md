@@ -50,7 +50,7 @@ There is no Mac in this project: GitHub Actions does all the building.
 | Workflow | When | What |
 |---|---|---|
 | **CI** | every push to `main` | BoloKit unit tests on macOS; Simulator build, launch and an 11-screen smoke test with screenshots (also pushed to the `ci/screenshots` branch); App Store archive dry run with an entitlements check |
-| **TestFlight** | by hand, or a commit message containing `[ship]` | signs with Apple's cloud signing and uploads to TestFlight (see [TESTFLIGHT.md](TESTFLIGHT.md)) |
+| **TestFlight** | by hand, or a commit message starting with `[ship]` | signs with Apple's cloud signing and uploads to TestFlight (see [TESTFLIGHT.md](TESTFLIGHT.md)) |
 | **Audio** | `content.json` changes, or by hand | records missing or stale clips, verifies them and commits them |
 | **TTS probe** | research only | compares candidate Gujarati TTS models; results on the `probe/*` branches |
 

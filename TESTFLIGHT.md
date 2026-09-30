@@ -31,7 +31,7 @@ commit: this repository is public.
 Builds go to TestFlight only when you ask, in either of two ways:
 
 - On GitHub, open **Actions** ▸ **TestFlight** ▸ **Run workflow** ▸ **Run workflow**.
-- Push a commit to `main` whose message contains `[ship]`.
+- Push a commit to `main` whose message starts with `[ship]` (for example `[ship] New unit`). Only the start counts, so a message that merely mentions it doesn't upload.
 
 Building and uploading takes about 10 to 15 minutes. Apple then processes the build, usually within
 5 to 30 minutes, and TestFlight on your iPhone offers it (the `Me` group gets every build
