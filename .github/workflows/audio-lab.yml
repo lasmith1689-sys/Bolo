@@ -147,7 +147,7 @@ jobs:
           sudo apt-get update -q && sudo apt-get install -y -q ffmpeg libsndfile1 >/dev/null
           pip install -q $PIP_TORCH
           pip install -q "transformers==4.46.2" soundfile librosa
-          if [ "${{ matrix.rec }}" = whisper-ct2 ]; then pip install -q faster-whisper "ctranslate2>=4.4"; fi
+          if [ "${{ matrix.rec }}" = whisper-ct2 ]; then pip install -q faster-whisper "ctranslate2==4.6.2"; fi  # 4.6.3+ passes dtype=, which transformers 4.46.2 rejects
       - name: Score
         if: contains(format(',{0},', inputs.recs || 'mms,whisper-ct2,vakyansh,utmos'), format(',{0},', matrix.rec))
         run: python tools/tts/lab.py score --rec ${{ matrix.rec }} --sets "${{ matrix.sets }}" --shard ${{ matrix.shard }} --shards ${{ matrix.shards }}
